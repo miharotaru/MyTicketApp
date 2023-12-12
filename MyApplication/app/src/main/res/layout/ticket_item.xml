@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_ticket"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="@dimen/margin"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="@dimen/margin"
+    android:background="@drawable/card_round"
+    android:elevation="@dimen/margin">
+
+    <ImageView
+        android:id="@+id/image_ticket"
+        android:layout_width="@dimen/image"
+        android:layout_height="@dimen/image"
+        android:layout_marginStart="@dimen/margin"
+        android:background="@drawable/card_round"
+        android:src="@drawable/dedeman"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_name_ticket"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/image_ticket"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Titlu de teatru" />
+
+    <ImageView
+        android:id="@+id/image_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:src="@drawable/baseline_location_on_24"
+        app:layout_constraintLeft_toRightOf="@+id/image_ticket"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_ticket"/>
+
+    <TextView
+        android:id="@+id/tv_location_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        app:layout_constraintLeft_toRightOf="@+id/image_location"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_ticket"
+        tools:text="shshfjdsfhjhsdghjfd"/>
+
+    <ImageView
+        android:id="@+id/image_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:src="@drawable/baseline_date_range_24"
+        app:layout_constraintLeft_toRightOf="@+id/image_ticket"
+        app:layout_constraintTop_toBottomOf="@+id/image_location"/>
+
+
+    <TextView
+        android:id="@+id/tv_date_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintLeft_toRightOf="@+id/image_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_location_ticket"
+        tools:text="shshfjdsfhjhsdghjfd"/>
+
+
+    <ImageView
+        android:id="@+id/image_status"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:background="@drawable/card_round"
+        android:src="@drawable/baseline_navigate_next_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
