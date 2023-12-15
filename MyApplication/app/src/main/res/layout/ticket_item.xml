@@ -19,7 +19,6 @@
         android:layout_height="@dimen/image"
         android:layout_marginStart="@dimen/margin"
         android:background="@drawable/card_round"
-        android:src="@drawable/dedeman"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tv_name_ticket"

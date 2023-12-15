@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TicketAdapter
 import com.example.myapplication.classes.Ticket
-import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
