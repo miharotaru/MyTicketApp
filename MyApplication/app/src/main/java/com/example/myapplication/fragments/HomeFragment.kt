@@ -1,43 +1,43 @@
-package com.example.myapplication
+package com.example.myapplication.fragments
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.adapter.TicketAdapter
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.fragments.HomeFragment
-import com.example.myapplication.fragments.SettingFragment
-import com.google.android.material.navigation.NavigationView
+import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 
-class MainActivity : AppCompatActivity() {
-
+class HomeFragment : Fragment() {
     private var ticketList: ArrayList<Ticket>? = ArrayList()
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var database: FirebaseFirestore
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-
-        setContentView(binding.root)
-       getInformation()
+        return binding.root
 
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getDataFirebase()
+    }
+//luam datele din firebase si le punem in lista de tichetel
     private fun getDataFirebase() {
         database = FirebaseFirestore.getInstance()
         database.collection("tickets").addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         ticketList?.add(dc.document.toObject(Ticket::class.java))
                     }
+                    Log.d("Firestore error", ticketList?.size.toString())
+
                 }
                 initAdapter()
             }
@@ -57,20 +59,13 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun getInformation() {
-
-//        ticketList?.add(Ticket("fdsdafds22222", "fdsfds", "dsfdsf"))
-//        ticketList?.add(Ticket("fdsdafds", "fdsfds", "dsfdsf"))
-        getDataFirebase()
-        initAdapter()
-    }
-
     private fun initAdapter() {
 
-        binding.recycleviewTicketItem.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = ticketList?.let { TicketAdapter(it) }
-        }
+        binding.recycleviewTicketItemFragmentHome.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycleviewTicketItemFragmentHome.adapter = TicketAdapter(ticketList as ArrayList<Ticket>)
+        Log.d("init adaper", "initadapter ticketList?.size.toString()")
+        Log.d("init adaper", ticketList?.size.toString())
+
     }
 
 }
