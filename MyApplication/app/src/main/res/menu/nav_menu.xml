@@ -12,12 +12,12 @@
         <item
             android:id="@+id/nav_popular"
             android:icon="@drawable/baseline_star_outline_24"
-            android:title="Popular"/>
+            android:title="My Tickets"/>
 
         <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/baseline_settings_24"
-            android:title="Setting"/>
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/baseline_calendar_month_24"
+            android:title="Calendar"/>
     </group>
 
   <item
@@ -27,6 +27,10 @@
               android:id="@+id/nav_log_out2"
               android:icon="@drawable/baseline_logout_24"
               android:title="Logout"/>
+          <item
+              android:id="@+id/nav_setting"
+              android:icon="@drawable/baseline_settings_24"
+              android:title="Setting"/>
 
       </menu>
 

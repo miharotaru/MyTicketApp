@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.myapplication.fragments.CalendarFragment
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.SettingFragment
 import com.google.android.material.navigation.NavigationView
@@ -55,6 +56,7 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
             }
             R.id.nav_setting->replaceFragment(SettingFragment())
             //R.id.nav_popular->replaceFragment()
+            R.id.nav_calendar->replaceFragment(CalendarFragment())
         }
         drawerLayout.closeDrawer(GravityCompat.START )
         return true

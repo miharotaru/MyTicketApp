@@ -40,7 +40,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin">
+        android:padding="@dimen/margin"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/tv_date_up_details_ticket"

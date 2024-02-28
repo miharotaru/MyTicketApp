@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.example.myapplication.R
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentDetailsTicketBinding
-import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.databinding.FragmentPaymentDetailsTicketBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
@@ -20,10 +19,9 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.squareup.picasso.Picasso
 
 
-class DetailsTicketFragment : Fragment() {
+class PaymentDetailsTicketFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailsTicketBinding
-    // Inițializat cu o valoare invalidă pentru a verifica dacă a fost setat corect
+private lateinit var binding: FragmentPaymentDetailsTicketBinding
     private var ticketPos: Int = -1
     var ticketList: ArrayList<Ticket>? = ArrayList()
     private lateinit var database: FirebaseFirestore
@@ -31,8 +29,7 @@ class DetailsTicketFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentDetailsTicketBinding.inflate(inflater, container, false)
+        binding=FragmentPaymentDetailsTicketBinding.inflate(inflater, container,false)
         return binding.root
     }
 
@@ -43,18 +40,6 @@ class DetailsTicketFragment : Fragment() {
             ticketPos =
                 it.getInt("ticketItem", -1) // -1 este valoarea implicită dacă nu se găsește cheia
         }
-
-        binding.constrantLayoutDetailsTicket.setOnClickListener{
-            val paymentDetailsFragment = PaymentDetailsTicketFragment()
-            val bundle = Bundle()
-            bundle.putInt("ticketItem", ticketPos)
-            paymentDetailsFragment.arguments = bundle
-
-            // Utilizează transaction pentru a înlocui fragmentul actual cu noul fragment
-            parentFragmentManager.beginTransaction().replace(R.id.fragment_container_main_drawer2, paymentDetailsFragment).commit()
-
-        }
-
     }
 
     private fun getDataFirebase() {
@@ -72,9 +57,8 @@ class DetailsTicketFragment : Fragment() {
                     }
                     Log.d("Firestore error", ticketList?.size.toString())
                 }
-
+                //se seteaza datele pentru view aici ca sa apara ce e in tickete
                 setDetailsTicket()
-
             }
         }
         )
@@ -85,14 +69,17 @@ class DetailsTicketFragment : Fragment() {
             Log.d("Fragment_ticketItem", ticketList.toString())
             ticketList?.get(ticketPos)?.let { ticket ->
                 // Accesezi TextView-urile din binding și setezi textul
-                binding.tvTitleDetailsTicket.text = ticket.title
-                binding.tvTitleTicketDetailsTicketFromTicket.text = ticket.title
-                binding.tvTextDetailsTicket.text = ticket.details
-                Picasso.get().load(ticket.urlToImage).into(binding.imageDetailsTicket)
+//                binding.tvTitleDetailsTicket.text = ticket.title
+//                binding.tvTitleTicketDetailsTicketFromTicket.text = ticket.title
+//                binding.tvTextDetailsTicket.text = ticket.details
+//                Picasso.get().load(ticket.urlToImage).into(binding.imageDetailsTicket)
             }
+
+
 
         } else {
             Log.d("Fragment_ticketItem", "Nu s-a transmis corect argumentul")
         }
     }
+
 }
