@@ -7,6 +7,8 @@ import com.squareup.picasso.Picasso
 
 class TicketViewHolder(private val binding: TicketItemBinding)
     : RecyclerView.ViewHolder(binding.root) {
+
+    val cardTicketView = binding.cardTicket
     fun bind(item: Ticket){
         binding.tvNameTicket.text=item.title
         binding.tvDateTicket.text=item.data

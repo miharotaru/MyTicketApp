@@ -8,19 +8,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentDetailsTicketBinding
 
 class LoginFragment : Fragment() {
 
+    private lateinit var binding: FragmentDetailsTicketBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
-
-
-        return view
+    ): View {
+        binding = FragmentDetailsTicketBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 }

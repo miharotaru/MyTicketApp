@@ -5,8 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.TicketItemBinding
+import com.example.myapplication.interfaces.OnClickListener
 
-class TicketAdapter(private var tickets: ArrayList<Ticket>) :
+class TicketAdapter(
+    private var tickets: ArrayList<Ticket>,
+    private var onClickListener: OnClickListener) :
     RecyclerView.Adapter<TicketViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
         val binding = TicketItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,10 +22,9 @@ class TicketAdapter(private var tickets: ArrayList<Ticket>) :
 
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
         holder.bind(tickets[position])
-        //todo implement onclickListener for click
-//        holder.itemView.card_ticket.setOnClickListener {
-//            onClickListener.onClickListenerDetails(position)
-//        }
+        holder.cardTicketView.setOnClickListener {
+            onClickListener.onClickListenerDetails(position)
+        }
     }
 
 }

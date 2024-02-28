@@ -15,8 +15,8 @@
 
     <ImageView
         android:id="@+id/image_ticket"
-        android:layout_width="@dimen/image"
-        android:layout_height="@dimen/image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/margin"
         android:background="@drawable/card_round"
         app:layout_constraintBottom_toBottomOf="parent"

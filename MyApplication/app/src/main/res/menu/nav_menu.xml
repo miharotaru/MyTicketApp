@@ -10,13 +10,14 @@
             android:title="Home"/>
 
         <item
+            android:id="@+id/nav_popular"
+            android:icon="@drawable/baseline_star_outline_24"
+            android:title="Popular"/>
+
+        <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/baseline_settings_24"
             android:title="Setting"/>
-        <item
-            android:id="@+id/nav_log_out"
-            android:icon="@drawable/baseline_logout_24"
-            android:title="Logout"/>
     </group>
 
   <item
@@ -25,7 +26,7 @@
           <item
               android:id="@+id/nav_log_out2"
               android:icon="@drawable/baseline_logout_24"
-              android:title="Logout2"/>
+              android:title="Logout"/>
 
       </menu>
 

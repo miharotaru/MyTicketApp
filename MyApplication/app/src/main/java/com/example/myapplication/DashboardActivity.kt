@@ -54,6 +54,7 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
                 Toast.makeText(this,"homeee", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_setting->replaceFragment(SettingFragment())
+            //R.id.nav_popular->replaceFragment()
         }
         drawerLayout.closeDrawer(GravityCompat.START )
         return true
