@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,13 +15,20 @@ import com.example.myapplication.fragments.CalendarFragment
 import com.example.myapplication.fragments.HomeFragment
 import com.example.myapplication.fragments.SettingFragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+
 
 class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener{
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        auth= Firebase.auth
 
         drawerLayout=findViewById(R.id.drawer_spercamerge)
 
@@ -52,11 +60,14 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
         when(item.itemId){
             R.id.nav_home-> {
                 replaceFragment(HomeFragment())
-                Toast.makeText(this,"homeee", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_setting->replaceFragment(SettingFragment())
             //R.id.nav_popular->replaceFragment()
             R.id.nav_calendar->replaceFragment(CalendarFragment())
+            R.id.nav_log_out->{
+                auth.signOut()
+                startActivity(Intent(this,LoginActivity::class.java))
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START )
         return true

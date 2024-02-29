@@ -18,6 +18,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class DetailsTicketFragment : Fragment() {
@@ -90,11 +94,42 @@ class DetailsTicketFragment : Fragment() {
                 binding.tvTitleDetailsTicket.text = ticket.title
                 binding.tvTitleTicketDetailsTicketFromTicket.text = ticket.title
                 binding.tvTextDetailsTicket.text = ticket.details
+
+                binding.tvDateDownDetailsTicket.text=setTime(ticket.data)
+                binding.tvDateUpDetailsTicket.text=setDataRo(ticket.data)
+                binding.tvLocationCityFrDetails.text="${ticket.location}, ${ticket.city}"
+
                 Picasso.get().load(ticket.urlToImage).into(binding.imageDetailsTicket)
             }
 
         } else {
             Log.d("Fragment_ticketItem", "Nu s-a transmis corect argumentul")
         }
+    }
+
+    private fun setTime(data: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        val parsedDate = inputFormat.parse(data)
+        return outputFormat.format(parsedDate)
+    }
+
+    private fun setDataRo(date: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("d MMMM", Locale("ro"))
+
+        val parsedDate = inputFormat.parse(date)
+        val monthName = outputFormat.format(parsedDate)
+
+        return monthName
+    }
+
+    private fun setData(date: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("d MMMM", Locale.getDefault())
+
+        val parsedDate = inputFormat.parse(date)
+        return outputFormat.format(parsedDate)
     }
 }
