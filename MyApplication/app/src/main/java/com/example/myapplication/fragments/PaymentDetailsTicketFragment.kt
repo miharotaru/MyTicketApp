@@ -1,6 +1,7 @@
 package com.example.myapplication.fragments
 
 import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
+import android.graphics.Color
 import com.example.myapplication.R
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentPaymentDetailsTicketBinding
@@ -107,18 +109,19 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
     }
     private fun showInsufficientTicketsDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
-        val dialogMessage = dialogView.findViewById<TextView>(R.id.dialog_message)
-        dialogMessage.text = "Numar insuficient de bilete"
+//        val dialogMessage = dialogView.findViewById<TextView>(R.id.dialog_message)
+//        dialogMessage.text = "Numar insuficient de bilete"
 
-        val okButton = dialogView.findViewById<Button>(R.id.ok_button)
-        okButton.setOnClickListener {
-           alertDialog.dismiss()
-        }
+//        val okButton = dialogView.findViewById<Button>(R.id.ok_button)
+//        okButton.setOnClickListener {
+//           alertDialog.dismiss()
+//        }
 
         val builder = AlertDialog.Builder(context)
         builder.setView(dialogView)
-        builder.setCancelable(false)
+        builder.setCancelable(true)
 
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog = builder.create()
         alertDialog.show()
     }

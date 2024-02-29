@@ -15,10 +15,10 @@ class WelcomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding=FragmentWelcomeBinding.inflate(inflater, container, false)
         binding.btToLoginFragment.setOnClickListener {
-            it.findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
+            it.findNavController().navigate(R.id.action_welcomeFragment_to_logInFragment)
         }
 
         binding.btToRegisterFragment.setOnClickListener {

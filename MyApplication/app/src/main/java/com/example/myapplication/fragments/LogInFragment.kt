@@ -5,20 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentDetailsTicketBinding
+import com.example.myapplication.databinding.FragmentLogInBinding
 
-class LoginFragment : Fragment() {
+class LogInFragment : Fragment() {
 
-    private lateinit var binding: FragmentDetailsTicketBinding
-
+private lateinit var binding:FragmentLogInBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailsTicketBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        binding=FragmentLogInBinding.inflate(inflater,container,false)
         return binding.root
     }
 
