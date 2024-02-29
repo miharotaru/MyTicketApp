@@ -106,7 +106,7 @@
         </Button>
 
         <TextView
-            android:id="@+id/tv_show_number_tickets"
+            android:id="@+id/tv_show_number_of_tickets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="2"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_show_number_tickets"
+            app:layout_constraintRight_toLeftOf="@+id/tv_show_number_of_tickets"
             android:text="-"
             android:layout_margin="@dimen/margin">
 
@@ -161,26 +161,26 @@
                 <!-- RadioButton 1 -->
                 <RadioButton
                     android:id="@+id/radio_button1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Radio Button 1"/>
 
                 <!-- RadioButton 2 -->
                 <RadioButton
                     android:id="@+id/radio_button2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Radio Button 2"/>
                 <RadioButton
                     android:id="@+id/radio_button3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Radio Button 3"/>
 
                 <!-- RadioButton 2 -->
                 <RadioButton
                     android:id="@+id/radio_button4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Radio Button 2"/>
 
@@ -208,7 +208,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Categoria 1"
+                    android:text="Pret categoria 1 de bilete"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -224,7 +224,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Categoria 2"
+                    android:text="Pret categoria 2 de bilete"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -240,7 +240,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Categoria 3"
+                    android:text="Pret categoria 3 de bilete"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"/>
 
@@ -256,7 +256,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VIP"
+                    android:text="Pret bilete VIP"
                     android:layout_gravity="center_vertical"
                     android:padding="10dp"
                     />
@@ -304,6 +304,7 @@
 
             <!-- Textul pentru ceva din partea dreaptă -->
             <TextView
+                android:id="@+id/tv_suma_totala_ticket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="1000"
