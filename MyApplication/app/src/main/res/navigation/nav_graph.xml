@@ -21,7 +21,11 @@
         android:id="@+id/registerFragment"
         android:name="com.example.myapplication.fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.myapplication.fragments.LogInFragment"
