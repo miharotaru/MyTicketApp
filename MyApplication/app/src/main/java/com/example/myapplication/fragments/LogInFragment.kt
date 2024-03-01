@@ -1,5 +1,6 @@
 package com.example.myapplication.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -37,6 +38,17 @@ class LogInFragment : Fragment() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
+
+                        //salvez email-ul in share preferences ca sa am acces la el in alte clase
+                        // ca sa pot sa ma duc dupa in "user" si sa recuperez numele si prenumele
+
+                        // Obține referința la SharedPreferences folosind contextul fragmentului
+                        val sharedPreferences = requireContext().getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+
+                        val editor = sharedPreferences.edit()
+                        editor.putString("email_user_key", email)
+                        editor.apply()
+
                         val intent = Intent(requireContext(), DashboardActivity::class.java)
                         startActivity(intent)
                         Toast.makeText(context, "User login successfully!", Toast.LENGTH_SHORT).show()

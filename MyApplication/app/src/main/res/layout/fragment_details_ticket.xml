@@ -12,7 +12,9 @@
         android:layout_height="150dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
 
     <TextView
         android:id="@+id/tv_title_details_ticket"
@@ -51,7 +53,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Partea stângă -->
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -59,7 +60,6 @@
                 android:layout_weight="3"
                 android:orientation="vertical">
 
-                <!-- RadioGroup pentru gruparea RadioButton-urilor -->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -82,14 +82,12 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <!-- Explicația 4 -->
                     <TextView
                         android:id="@+id/tv_date_down_details_ticket"
                         android:layout_width="wrap_content"
@@ -107,7 +105,6 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <!-- Partea dreaptă -->
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -121,7 +118,6 @@
                     android:layout_weight="2"
                     android:orientation="vertical">
 
-                    <!-- Explicația 1 -->
                     <TextView
                         android:id="@+id/tv_title_ticket_details_ticket_from_ticket"
                         android:layout_width="wrap_content"
@@ -139,7 +135,6 @@
                     </TextView>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -163,7 +158,6 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -186,7 +180,6 @@
                         android:src="@drawable/baseline_navigate_next_24" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -217,6 +210,7 @@
         android:layout_margin="@dimen/margin"
         android:lines="100"
         android:maxLines="100"
+        android:minLines="2"
         android:padding="@dimen/margin"
         android:textAlignment="viewStart"
         android:textSize="20dp"
@@ -224,7 +218,7 @@
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_only"
-        tools:text="Detalii eveniment"></TextView>
-
+        tools:text="Detalii eveniment">
+    </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
