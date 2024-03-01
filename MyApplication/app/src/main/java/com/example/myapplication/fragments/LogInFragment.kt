@@ -47,7 +47,7 @@ class LogInFragment : Fragment() {
 
                         val intent = Intent(requireContext(), DashboardActivity::class.java)
                         startActivity(intent)
-                        Toast.makeText(context, "User login successfully!", Toast.LENGTH_SHORT).show()
+
                     } else {
                         Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
 

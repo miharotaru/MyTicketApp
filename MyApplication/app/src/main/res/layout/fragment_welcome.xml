@@ -6,23 +6,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.WelcomeFragment">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_to_login_fragment"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@color/lavander"
+        android:layout_marginTop="500dp"
         android:text="Login"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bt_to_register_fragment"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-    </Button>
-    <Button
+    </androidx.appcompat.widget.AppCompatButton>
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_to_register_fragment"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@color/lavander"
         android:text="sign up"
-        app:layout_constraintTop_toBottomOf="@id/bt_to_login_fragment"
-        app:layout_constraintLeft_toLeftOf="parent">
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

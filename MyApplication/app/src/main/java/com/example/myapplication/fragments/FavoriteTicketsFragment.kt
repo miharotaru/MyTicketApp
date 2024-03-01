@@ -22,7 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot
 
 class FavoriteTicketsFragment : Fragment(), OnClickListener {
 
-
     private lateinit var binding: FragmentFavoriteTicketsBinding
     private lateinit var database: FirebaseFirestore
     private var userList: ArrayList<User>? = ArrayList()
@@ -86,9 +85,7 @@ class FavoriteTicketsFragment : Fragment(), OnClickListener {
                 }
 
                 setFavoriteTicketsToSee()
-
             }
-
         }
 
         )

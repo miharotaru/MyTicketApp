@@ -51,10 +51,8 @@ class RegisterFragment : Fragment() {
 //                            val intent = Intent(this, SignInActivity::class.java)
 //                            startActivity(intent)
 
-
                             //user.preferences=preferencesUserListOfPreferences()
                             user=User(firstname,lastname,email,preferencesUserListOfPreferences())
-
                             saveUserInFirestore(user)
 
                             //Toast.makeText(context, "User registered successfully!", Toast.LENGTH_SHORT).show()
@@ -68,7 +66,6 @@ class RegisterFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT)
                     .show()
-
             }
         }
     }
