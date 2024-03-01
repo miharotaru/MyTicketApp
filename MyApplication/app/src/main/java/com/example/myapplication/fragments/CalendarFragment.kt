@@ -58,7 +58,6 @@ class CalendarFragment : Fragment() , OnClickListener{
                 }
 
                 setCalendar()
-
             }
         }
         )
@@ -86,11 +85,9 @@ class CalendarFragment : Fragment() , OnClickListener{
                 binding.recycleviewTicketItemFragmentCalendar.layoutManager=LinearLayoutManager(requireContext())
                 adapter = TicketAdapter(newTicketList as ArrayList<Ticket>,this)
                 binding.recycleviewTicketItemFragmentCalendar.adapter = adapter
-
             }
         }
     }
-
 
     fun filterTicketsByDate(date: Calendar): List<Ticket> {
         val filteredList = mutableListOf<Ticket>()
@@ -129,6 +126,4 @@ class CalendarFragment : Fragment() , OnClickListener{
         //poate pot sa rezolv bug-ul cu aceasta metoda
         //requireActivity().supportFragmentManager.popBackStack()
     }
-
-
 }

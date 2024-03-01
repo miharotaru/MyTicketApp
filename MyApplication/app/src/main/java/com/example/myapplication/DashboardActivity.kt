@@ -68,9 +68,6 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
         navigationView.setNavigationItemSelectedListener(this)
 
         getDataFirebase()
-
-
-
     }
 
     private fun getDataFirebase() {
@@ -88,10 +85,8 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
                     }
                     Log.d("Firestore error", userList?.size.toString())
                 }
-
                 setNameAndEmailUser()
             }
-
         }
 
         )
@@ -101,9 +96,7 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
       val headerView: View = navigationView.getHeaderView(0) // index 0 pentru primul header (dacă ai mai multe)
         val emailTextView: TextView = headerView.findViewById(R.id.emailTextViewId) // înlocuiește cu id-ul real
         val nameTextView: TextView = headerView.findViewById(R.id.nameTextViewId) // înlocuiește cu id-ul real
-
         val sharedPreferences = getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
-
         // Setează textul pentru TextView-urile de email și nume
         emailTextView.setText(sharedPreferences.getString("email_user_key", "valoare_default"))
 
@@ -112,9 +105,7 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
                 nameTextView.text ="${user.firstname} ${user.lastname}"
             }
         }
-
     }
-
 
     private fun replaceFragment(fragment: Fragment) {
         val transaction: FragmentTransaction=supportFragmentManager.beginTransaction()
@@ -124,9 +115,7 @@ class DashboardActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_home-> {
-                replaceFragment(HomeFragment())
-            }
+            R.id.nav_home-> replaceFragment(HomeFragment())
             R.id.nav_setting->replaceFragment(SettingFragment())
             R.id.nav_popular->replaceFragment(FavoriteTicketsFragment())
             R.id.nav_calendar->replaceFragment(CalendarFragment())
