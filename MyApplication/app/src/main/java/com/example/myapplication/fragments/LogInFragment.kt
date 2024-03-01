@@ -43,11 +43,7 @@ class LogInFragment : Fragment() {
                         // ca sa pot sa ma duc dupa in "user" si sa recuperez numele si prenumele
 
                         // Obține referința la SharedPreferences folosind contextul fragmentului
-                        val sharedPreferences = requireContext().getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
-
-                        val editor = sharedPreferences.edit()
-                        editor.putString("email_user_key", email)
-                        editor.apply()
+                        setEmailInSharePreferences(email)
 
                         val intent = Intent(requireContext(), DashboardActivity::class.java)
                         startActivity(intent)
@@ -64,7 +60,10 @@ class LogInFragment : Fragment() {
         }
     }
 
-
-
-
+    private fun setEmailInSharePreferences(email: String) {
+        val sharedPreferences = requireContext().getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("email_user_key", email)
+        editor.apply()
+    }
 }

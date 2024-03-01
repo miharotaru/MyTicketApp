@@ -4,30 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:gravity="bottom"
+    android:layout_marginTop="25dp"
     android:padding="16dp"
     android:background="@drawable/headerbkg"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_circle_24">
+        android:id="@+id/user_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/freelancer">
     </ImageView>
 
     <TextView
-        android:id="@+id/nav_header_profilname"
+        android:id="@+id/nameTextViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profil name"
+        android:layout_marginTop="@dimen/margin"
         android:textColor="@color/white"
         android:textStyle="bold">
     </TextView>
 
     <TextView
-        android:id="@+id/nav_header_profilemail"
+        android:id="@+id/emailTextViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="irina@gmail.com"
+        android:layout_marginTop="@dimen/margin"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="14sp"

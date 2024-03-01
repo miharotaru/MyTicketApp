@@ -15,4 +15,5 @@ data class Ticket (
     var priceCategoryTwo: Int=-1,
     var priceCategoryThree: Int=-1,
     var priceCategoryVIP: Int=-1,
+    var category: String="",
 )
