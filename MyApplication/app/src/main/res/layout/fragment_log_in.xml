@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.LogInFragment"
-    android:background="@drawable/backgroung_login">
+    android:background="@drawable/pagebkg">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
