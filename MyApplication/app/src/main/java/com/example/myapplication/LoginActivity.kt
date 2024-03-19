@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.firebase.auth.FirebaseAuth
+import android.content.SharedPreferences
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -30,8 +32,16 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
+            //iau email-ul din share preferences
+            val sharedPreferences = getSharedPreferences(Utils.NAME_FOLDER_PREFERENCES, Context.MODE_PRIVATE)
+            val emailUser = sharedPreferences.getString(Utils.EMAIL_KEY, null)
+            if(emailUser.equals(Utils.EMAIL_ADDRESS_ADMIN)){
+                val intent = Intent(this, AdminDashboardActivity::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
