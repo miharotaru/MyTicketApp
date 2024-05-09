@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.myapplication.AdminDashboardActivity
 import com.example.myapplication.DashboardActivity
 import com.example.myapplication.R
+import com.example.myapplication.Utils
 import com.example.myapplication.databinding.FragmentLogInBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -45,7 +46,7 @@ class LogInFragment : Fragment() {
 
                         // Obține referința la SharedPreferences folosind contextul fragmentului
                         setEmailInSharePreferences(email)
-                        if (email.equals("kiki@gmail.com")) {
+                        if (email.equals(Utils.EMAIL_ADDRESS_ADMIN)) {
                             val intent =
                                 Intent(requireContext(), AdminDashboardActivity::class.java)
                             startActivity(intent)

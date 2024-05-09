@@ -92,9 +92,9 @@ class DetailsTicketFragment : Fragment() {
                 binding.tvTitleDetailsTicket.text = ticket.title
                 binding.tvTitleTicketDetailsTicketFromTicket.text = ticket.title
                 binding.tvTextDetailsTicket.text = ticket.details
-
-                binding.tvDateDownDetailsTicket.text=setTime(ticket.data)
-                binding.tvDateUpDetailsTicket.text=setDataRo(ticket.data)
+//
+                //binding.tvDateDownDetailsTicket.text=setTime(ticket.data)
+                //binding.tvDateUpDetailsTicket.text=setDataRo(ticket.data)
                 binding.tvLocationCityFrDetails.text="${ticket.location}, ${ticket.city}"
 
                 Picasso.get().load(ticket.urlToImage).into(binding.imageDetailsTicket)

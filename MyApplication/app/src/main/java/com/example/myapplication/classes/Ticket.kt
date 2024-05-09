@@ -8,7 +8,6 @@ data class Ticket (
     var location: String="",
     var city:String="",
     var data: String="",
-    var urlToImage: String="",
     var details:String="",
     var numberTickets:Int=-1,
     var priceCategoryOne: Int=-1,
@@ -16,4 +15,7 @@ data class Ticket (
     var priceCategoryThree: Int=-1,
     var priceCategoryVIP: Int=-1,
     var category: String="",
-)
+    var urlToImage: String="",
+    ){
+    var id: String = ""
+}

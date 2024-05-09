@@ -1,5 +1,6 @@
 package com.example.myapplication.fragments.admin
 
+import android.annotation.SuppressLint
 import android.os.Binder
 import android.os.Bundle
 import android.util.Log
@@ -31,49 +32,120 @@ class AdminHomeFragment : Fragment(),OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentAdminHomeBinding.inflate(inflater,container,false)
+
+        val searchButton = binding.searchButton
+        val searchEditText = binding.searchEditText
+        val ticketsListView = binding.recycleviewTicketItemFragmentHome
+
+        searchButton.setOnClickListener {
+            val searchQuery = searchEditText.text.toString()
+            searchTickets(searchQuery)
+        }
+
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getDataFirebase()
+       // getDataFirebase()
+
+
+    }
+
+
+    fun searchTickets(query: String) {
+        database = FirebaseFirestore.getInstance()
+        database.collection("tickets")
+            .whereEqualTo("title", query)  // Ajustează acest câmp conform structurii tale de date
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.e("Firestore error", error.message.toString())
+                    return@addSnapshotListener
+                }
+                ticketList?.clear()  // Golește lista pentru a afișa doar rezultatele căutării
+
+                for (doc in value!!) {
+                    val ticket = doc.toObject(Ticket::class.java).apply {
+                        id = doc.id  // Setează ID-ul aici
+                    }
+                    ticketList?.add(ticket)
+                }
+                initAdapter()  // Reînnoiește adapterul cu rezultatele filtrate
+            }
+    }
+
+    private fun getTickets(){
+        database = FirebaseFirestore.getInstance()
+        database.collection("tickets").addSnapshotListener { value, error ->
+            if (error != null) {
+                Log.e("Firestore error", error.message.toString())
+                return@addSnapshotListener
+            }
+            ticketList?.clear()  // Golește lista la fiecare actualizare pentru a evita duplicatele
+
+            value?.documentChanges?.forEach { dc ->
+                val ticket = dc.document.toObject(Ticket::class.java).apply {
+                    id = dc.document.id  // Setează ID-ul aici
+                }
+                when (dc.type) {
+                    DocumentChange.Type.ADDED -> ticketList?.add(ticket)
+                    DocumentChange.Type.MODIFIED -> {
+                        val index = ticketList?.indexOfFirst { it.id == ticket.id }
+                        if (index != null && index >= 0) {
+                            ticketList?.set(index, ticket)
+                        }
+                    }
+                    DocumentChange.Type.REMOVED -> {
+                        ticketList?.removeIf { it.id == ticket.id }
+                    }
+                }
+            }
+        }
     }
 
     private fun getDataFirebase() {
         database = FirebaseFirestore.getInstance()
-        database.collection("tickets").addSnapshotListener(object : EventListener<QuerySnapshot> {
+        database.collection("tickets").addSnapshotListener { value, error ->
+            if (error != null) {
+                Log.e("Firestore error", error.message.toString())
+                return@addSnapshotListener
+            }
+            ticketList?.clear()  // Golește lista la fiecare actualizare pentru a evita duplicatele
 
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null) {
-                    Log.e("Firestore error", error.message.toString())
-                    return
+            value?.documentChanges?.forEach { dc ->
+                val ticket = dc.document.toObject(Ticket::class.java).apply {
+                    id = dc.document.id  // Setează ID-ul aici
                 }
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        ticketList?.add(dc.document.toObject(Ticket::class.java))
+                when (dc.type) {
+                    DocumentChange.Type.ADDED -> ticketList?.add(ticket)
+                    DocumentChange.Type.MODIFIED -> {
+                        val index = ticketList?.indexOfFirst { it.id == ticket.id }
+                        if (index != null && index >= 0) {
+                            ticketList?.set(index, ticket)
+                        }
                     }
-                    Log.d("Firestore error", ticketList?.size.toString())
+                    DocumentChange.Type.REMOVED -> {
+                        ticketList?.removeIf { it.id == ticket.id }
+                    }
                 }
-                initAdapter()
-                //nu functioneaza dar il las aici
-                adapter.notifyDataSetChanged()
             }
 
+            initAdapter()  // Inițializează adapterul după actualizarea listei
         }
-
-        )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initAdapter() {
-
         binding.recycleviewTicketItemFragmentHome.layoutManager = LinearLayoutManager(requireContext())
-        adapter = TicketAdapter(ticketList as ArrayList<Ticket>,this)
-        binding.recycleviewTicketItemFragmentHome.adapter = adapter
+        if (!::adapter.isInitialized) {
+            adapter = TicketAdapter(ticketList ?: ArrayList(), this)
+            binding.recycleviewTicketItemFragmentHome.adapter = adapter
+        }
         adapter.notifyDataSetChanged()
-        Log.d("init adaper", "initadapter ticketList?.size.toString()")
-        Log.d("init adaper", ticketList?.size.toString())
-
     }
+
+
 
     override fun onClickListenerDetails(ticketPos: Int) {
         //TODO("Not yet implemented")

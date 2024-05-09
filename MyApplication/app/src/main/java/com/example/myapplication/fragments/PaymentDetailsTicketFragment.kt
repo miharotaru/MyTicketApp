@@ -157,7 +157,9 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
                 // Accesezi TextView-urile din binding și setezi textul
                 binding.tvNameTicketPayment.text = ticket.title
                 binding.tvLocationTicketPayment.text = ticket.location
-                binding.tvDateTicketPayment.text = ticket.data
+                //binding.tvDateTicketPayment.text = ticket.data
+                binding.tvDateTicketPayment.text =
+                    "${ticket.data.substring(0,10)}, Ora: ${ticket.data.substring(12,16)}"
                 binding.tvShowNumberOfTickets.text = "1"
                 binding.tvSumaTotalaTicket.text="-"
 
