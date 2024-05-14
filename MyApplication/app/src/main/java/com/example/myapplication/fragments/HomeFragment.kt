@@ -1,16 +1,25 @@
 package com.example.myapplication.fragments
 
-import android.annotation.SuppressLint
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.DashboardActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TicketAdapter
 import com.example.myapplication.classes.Ticket
@@ -23,17 +32,17 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 
 
+const val CHANNEL_ID = "channelId"
 
 class HomeFragment : Fragment(), OnClickListener {
     private var ticketList: ArrayList<Ticket>? = ArrayList()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var database: FirebaseFirestore
     private lateinit var adapter: TicketAdapter
-        override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,8 +50,58 @@ class HomeFragment : Fragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataFirebase()
+        setNotification()
     }
-//luam datele din firebase si le punem in lista de tichete
+
+    private fun createNotificationChannel() {
+        // Verifică dacă versiunea de Android este Oreo (API 26) sau mai nouă, deoarece canalele de notificare sunt necesare doar în aceste versiuni.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Notificare canal"
+            val descriptionText = "Descriere canal de notificare"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Înregistrează canalul în sistem
+            val notificationManager: NotificationManager = requireActivity().getSystemService(
+                Context.NOTIFICATION_SERVICE
+            ) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun setNotification() {
+        createNotificationChannel() // Asigură-te că aceasta este apelată undeva în cod
+
+        val intent = Intent(context, DashboardActivity::class.java)
+        val pendingIntent =
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID).apply {
+            setSmallIcon(R.drawable.ticket)
+            setContentTitle("Ticket Title")
+            setContentText("This is a test notification from My App")
+            priority = NotificationCompat.PRIORITY_DEFAULT
+            setContentIntent(pendingIntent)
+            setAutoCancel(true)
+        }
+
+        val notificationManager = NotificationManagerCompat.from(requireContext())
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        notificationManager.notify(
+            1,
+            builder.build()
+        )  // '1' este ID-ul notificării, asigură-te că este unic // '1' este ID-ul notificării, asigură-te că este unic pentru fiecare notificare
+    }
+
+    //luam datele din firebase si le punem in lista de tichete
     private fun getDataFirebase() {
         database = FirebaseFirestore.getInstance()
         database.collection("tickets").addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -70,8 +129,9 @@ class HomeFragment : Fragment(), OnClickListener {
 
     private fun initAdapter() {
 
-        binding.recycleviewTicketItemFragmentHome.layoutManager = LinearLayoutManager(requireContext())
-        adapter = TicketAdapter(ticketList as ArrayList<Ticket>,this)
+        binding.recycleviewTicketItemFragmentHome.layoutManager =
+            LinearLayoutManager(requireContext())
+        adapter = TicketAdapter(ticketList as ArrayList<Ticket>, this)
         binding.recycleviewTicketItemFragmentHome.adapter = adapter
         adapter.notifyDataSetChanged()
         Log.d("init adaper", "initadapter ticketList?.size.toString()")
@@ -82,7 +142,7 @@ class HomeFragment : Fragment(), OnClickListener {
     //aici se intampla magia cand se se apasa pe un ticket propriu zis si se transfera datele
     // de la un fragment la altul
     override fun onClickListenerDetails(ticketPos: Int) {
-       // Toast.makeText(context, "Hello"+ticketItem.toString()+" ceva", Toast.LENGTH_SHORT).show()
+        // Toast.makeText(context, "Hello"+ticketItem.toString()+" ceva", Toast.LENGTH_SHORT).show()
         val detailsFragment = DetailsTicketFragment()
         val bundle = Bundle()
         Log.d("ticketmeu", ticketList?.get(ticketPos).toString())
@@ -97,6 +157,4 @@ class HomeFragment : Fragment(), OnClickListener {
         //poate pot sa rezolv bug-ul cu aceasta metoda
         //requireActivity().supportFragmentManager.popBackStack()
     }
-
-
 }

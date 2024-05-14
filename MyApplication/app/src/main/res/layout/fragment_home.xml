@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:background="@drawable/gradient3">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview_ticket_item_fragment_home"

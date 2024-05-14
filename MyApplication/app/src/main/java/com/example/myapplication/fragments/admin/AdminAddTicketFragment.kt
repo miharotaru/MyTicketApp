@@ -14,7 +14,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.myapplication.R
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentAdminAddTicketBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,7 +24,6 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
-//private const val ARG_PARAM2 = "param2"
 
 
 class AdminAddTicketFragment : Fragment() {
@@ -37,13 +35,13 @@ class AdminAddTicketFragment : Fragment() {
     lateinit var selectedTimeTV: TextView
     lateinit var addTicket: Button
     private lateinit var db: FirebaseFirestore
-    private lateinit var binding:FragmentAdminAddTicketBinding
+    private lateinit var binding: FragmentAdminAddTicketBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-       binding=FragmentAdminAddTicketBinding.inflate(inflater, container, false)
+        binding = FragmentAdminAddTicketBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -87,7 +85,8 @@ class AdminAddTicketFragment : Fragment() {
 
 
                 val dateTime = LocalDateTime.of(date, time)
-                val isoDateTime = dateTime.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
+                val isoDateTime =
+                    dateTime.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
 
                 finalDate = "$dateTime.321Z"
 
@@ -201,5 +200,4 @@ class AdminAddTicketFragment : Fragment() {
             datePickerDialog?.show()
         }
     }
-
 }

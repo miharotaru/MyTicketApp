@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.CalendarFragment">
+    tools:context=".fragments.CalendarFragment"
+    android:background="@drawable/gradient3">
 
     <CalendarView
         android:id="@+id/calendarView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:theme="@style/CustomCalendarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

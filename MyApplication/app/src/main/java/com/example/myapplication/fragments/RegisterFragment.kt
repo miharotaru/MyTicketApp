@@ -1,28 +1,23 @@
 package com.example.myapplication.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.example.myapplication.R
 import com.example.myapplication.classes.User
 import com.example.myapplication.databinding.FragmentRegisterBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import java.util.ArrayList
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var user:User
-    private var db= Firebase.firestore
+    private lateinit var user: User
+    private var db = Firebase.firestore
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,11 +34,12 @@ class RegisterFragment : Fragment() {
             val email = binding.emailEt.text.toString().trim()
             val pass = binding.passET.text.toString().trim()
             val confirmPass = binding.confirmPassEt.text.toString().trim()
-            val firstname=binding.firstnameEt.text.toString().trim()
-            val lastname=binding.lastnameEt.text.toString().trim()
+            val firstname = binding.firstnameEt.text.toString().trim()
+            val lastname = binding.lastnameEt.text.toString().trim()
 
             if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()
-                && firstname.isNotEmpty()&& lastname.isNotEmpty()) {
+                && firstname.isNotEmpty() && lastname.isNotEmpty()
+            ) {
                 if (pass == confirmPass) {
                     //aici se adauga noul user in firebase auth
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
@@ -52,12 +48,14 @@ class RegisterFragment : Fragment() {
 //                            startActivity(intent)
 
                             //user.preferences=preferencesUserListOfPreferences()
-                            user=User(firstname,lastname,email,preferencesUserListOfPreferences())
+                            user =
+                                User(firstname, lastname, email, preferencesUserListOfPreferences())
                             saveUserInFirestore(user)
 
                             //Toast.makeText(context, "User registered successfully!", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 } else {
@@ -72,32 +70,60 @@ class RegisterFragment : Fragment() {
 
     private fun preferencesUserListOfPreferences(): ArrayList<String> {
         val checkBoxConcerts = binding.checkBoxConcerts
+        val checkBoxFestival = binding.checkBoxFestival
         val checkBoxTheatre = binding.checkBoxTheatre
-        val checkBoxOutdoor = binding.checkBoxOutdoor
+        val checkBoxBalet = binding.checkBoxBalet
+        val checkBoxExpozitie = binding.checkBoxExpozitie
+        val checkBoxComedie = binding.checkBoxComedie
+        val checkBoxSport = binding.checkBoxSport
+        val checkBoxStreetFood = binding.checkBoxStreetFood
+        val checkBoxWorkshop = binding.checkBoxWorkshop
+        val checkBoxTarg = binding.checkBoxTarg
 
         val selectedPreferences = ArrayList<String>()
 
         if (checkBoxConcerts.isChecked) {
             selectedPreferences.add(checkBoxConcerts.text.toString())
         }
+        if (checkBoxFestival.isChecked) {
+            selectedPreferences.add(checkBoxFestival.text.toString())
+        }
         if (checkBoxTheatre.isChecked) {
             selectedPreferences.add(checkBoxTheatre.text.toString())
         }
-        if (checkBoxOutdoor.isChecked) {
-            selectedPreferences.add(checkBoxOutdoor.text.toString())
+        if (checkBoxBalet.isChecked) {
+            selectedPreferences.add(checkBoxBalet.text.toString())
         }
-
-       return selectedPreferences
+        if (checkBoxExpozitie.isChecked) {
+            selectedPreferences.add(checkBoxExpozitie.text.toString())
+        }
+        if (checkBoxComedie.isChecked) {
+            selectedPreferences.add(checkBoxComedie.text.toString())
+        }
+        if (checkBoxSport.isChecked) {
+            selectedPreferences.add(checkBoxSport.text.toString())
+        }
+        if (checkBoxStreetFood.isChecked) {
+            selectedPreferences.add(checkBoxStreetFood.text.toString())
+        }
+        if (checkBoxWorkshop.isChecked) {
+            selectedPreferences.add(checkBoxWorkshop.text.toString())
+        }
+        if (checkBoxTarg.isChecked) {
+            selectedPreferences.add(checkBoxTheatre.text.toString())
+        }
+        return selectedPreferences
     }
 
 
     private fun saveUserInFirestore(user: User) {
-        db=Firebase.firestore
-        db.collection("user").document().set(user).addOnSuccessListener {
+        db = Firebase.firestore
+        db.collection("user").document().set(user)
+            .addOnSuccessListener {
             Toast.makeText(context, "User registered successfully!", Toast.LENGTH_SHORT).show()
-             binding.emailEt.text?.clear()
-             binding.passET.text?.clear()
-             binding.confirmPassEt.text?.clear()
+            binding.emailEt.text?.clear()
+            binding.passET.text?.clear()
+            binding.confirmPassEt.text?.clear()
             binding.firstnameEt.text?.clear()
             binding.lastnameEt.text?.clear()
         }

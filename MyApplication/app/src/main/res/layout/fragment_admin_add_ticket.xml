@@ -197,7 +197,80 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/idEdtTitle" />
+        <RadioGroup
 
+            android:id="@+id/radioGroupPreferences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idEdtImageUrl"
+            app:layout_constraintBottom_toTopOf="@+id/idBtnAddTicket">
+
+            <CheckBox
+                android:id="@+id/checkBoxConcerts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concerte" />
+
+
+            <CheckBox
+                android:id="@+id/checkBoxFestival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Festival" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTheatre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teatru" />
+
+            <CheckBox
+                android:id="@+id/checkBoxBalet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Balet/Dans" />
+
+            <CheckBox
+                android:id="@+id/checkBoxExpozitie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expozitie" />
+
+            <CheckBox
+                android:id="@+id/checkBoxComedie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comedie" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sport" />
+
+            <CheckBox
+                android:id="@+id/checkBoxStreetFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Street food" />
+
+            <CheckBox
+                android:id="@+id/checkBoxWorkshop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workshop" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTarg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Targ" />
+
+        </RadioGroup>
         <Button
             android:id="@+id/idBtnAddTicket"
             android:layout_width="match_parent"
@@ -207,7 +280,7 @@
             android:textAllCaps="false"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtImageUrl" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupPreferences" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

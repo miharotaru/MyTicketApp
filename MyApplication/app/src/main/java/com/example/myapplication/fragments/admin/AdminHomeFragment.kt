@@ -21,9 +21,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 
 
-class AdminHomeFragment : Fragment(),OnClickListener {
+class AdminHomeFragment : Fragment(), OnClickListener {
 
-    private lateinit var binding:FragmentAdminHomeBinding
+    private lateinit var binding: FragmentAdminHomeBinding
     private lateinit var database: FirebaseFirestore
     private lateinit var adapter: TicketAdapter
     private var ticketList: ArrayList<Ticket>? = ArrayList()
@@ -31,7 +31,7 @@ class AdminHomeFragment : Fragment(),OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding=FragmentAdminHomeBinding.inflate(inflater,container,false)
+        binding = FragmentAdminHomeBinding.inflate(inflater, container, false)
 
         val searchButton = binding.searchButton
         val searchEditText = binding.searchEditText
@@ -41,16 +41,12 @@ class AdminHomeFragment : Fragment(),OnClickListener {
             val searchQuery = searchEditText.text.toString()
             searchTickets(searchQuery)
         }
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // getDataFirebase()
-
-
+        // getDataFirebase()
     }
 
 
@@ -75,7 +71,7 @@ class AdminHomeFragment : Fragment(),OnClickListener {
             }
     }
 
-    private fun getTickets(){
+    private fun getTickets() {
         database = FirebaseFirestore.getInstance()
         database.collection("tickets").addSnapshotListener { value, error ->
             if (error != null) {
@@ -96,6 +92,7 @@ class AdminHomeFragment : Fragment(),OnClickListener {
                             ticketList?.set(index, ticket)
                         }
                     }
+
                     DocumentChange.Type.REMOVED -> {
                         ticketList?.removeIf { it.id == ticket.id }
                     }
@@ -125,6 +122,7 @@ class AdminHomeFragment : Fragment(),OnClickListener {
                             ticketList?.set(index, ticket)
                         }
                     }
+
                     DocumentChange.Type.REMOVED -> {
                         ticketList?.removeIf { it.id == ticket.id }
                     }
@@ -137,14 +135,14 @@ class AdminHomeFragment : Fragment(),OnClickListener {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun initAdapter() {
-        binding.recycleviewTicketItemFragmentHome.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycleviewTicketItemFragmentHome.layoutManager =
+            LinearLayoutManager(requireContext())
         if (!::adapter.isInitialized) {
             adapter = TicketAdapter(ticketList ?: ArrayList(), this)
             binding.recycleviewTicketItemFragmentHome.adapter = adapter
         }
         adapter.notifyDataSetChanged()
     }
-
 
 
     override fun onClickListenerDetails(ticketPos: Int) {
