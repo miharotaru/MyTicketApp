@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestActivity">
+    tools:context=".fragments.admin.AdminAddTicketFragment"
+    android:background="@drawable/gradient3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,6 +26,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Selectarea datei cu stilizare îmbunătățită și imagine în loc de buton -->
+
+        <ImageView
+            android:id="@+id/idBtnPickDate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_calendar_month_mov"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedDate"
+            app:layout_constraintRight_toLeftOf="@id/idTVSelectedDate"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+
         <TextView
             android:id="@+id/idTVSelectedDate"
             android:layout_width="0dp"
@@ -36,179 +52,272 @@
             android:text="Select Date"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/idBtnPickDate"
+            app:layout_constraintLeft_toRightOf="@+id/idBtnPickDate"
             app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
 
         <ImageView
-            android:id="@+id/idBtnPickDate"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:id="@+id/idBtnPickTime"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/baseline_calendar_month_mov"
-            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedDate"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+            android:src="@drawable/baseline_watch_later_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/idBtnPickDate" />
 
-        <!-- Selectarea orei cu stilizare îmbunătățită și imagine în loc de buton -->
         <TextView
             android:id="@+id/idTVSelectedTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginTop="30dp"
             android:gravity="center_vertical"
             android:text="Select Time"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/idBtnPickTime"
+            app:layout_constraintLeft_toRightOf="@+id/idBtnPickTime"
             app:layout_constraintTop_toBottomOf="@id/idTVSelectedDate" />
 
-        <ImageView
-            android:id="@+id/idBtnPickTime"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/baseline_watch_later_24"
-            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedTime"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idBtnPickDate" />
 
-        <EditText
-            android:id="@+id/idEdtCategory"
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutTitle"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Category"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idBtnPickTime" />
+            app:layout_constraintTop_toBottomOf="@id/idTVSelectedTime">
 
-        <EditText
-            android:id="@+id/idEdtCity"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutCategory"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="City"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtCategory" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutTitle">
 
-        <EditText
-            android:id="@+id/idEdtDetails"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Category"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutCity"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Details"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtCity" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutCategory">
 
-        <EditText
-            android:id="@+id/idEdtLocation"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutLocation"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Location"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtDetails" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutCity">
 
-        <EditText
-            android:id="@+id/idEdtNumberTicket"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutDetails"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Number of Tickets"
-            android:inputType="number"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutLocation">
 
-        <EditText
-            android:id="@+id/idEdtPriceCategoryOne"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Details"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutNumberTicket"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Price Category One"
-            android:inputType="number"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtNumberTicket" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutDetails">
 
-        <EditText
-            android:id="@+id/idEdtPriceCategoryTwo"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtNumberTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="NumberTicket"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryOne"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Price Category Two"
-            android:inputType="number"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryOne" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutNumberTicket">
 
-        <EditText
-            android:id="@+id/idEdtPriceCategoryThree"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCategoryOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CategoryOne"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryTwo"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Price Category Three"
-            android:inputType="number"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryTwo" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryOne">
 
-        <EditText
-            android:id="@+id/idEdtPriceCategoryVIP"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="PriceCategoryTwo"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryThree"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Price Category VIP"
-            android:inputType="number"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryThree" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryTwo">
 
-        <EditText
-            android:id="@+id/idEdtTitle"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="PriceCategoryThree"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPricePriceCategoryVIP"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Title"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryVIP" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryThree">
 
-        <EditText
-            android:id="@+id/idEdtImageUrl"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryVIP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="PriceCategoryVIP"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutImageUrl"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Image URL"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPricePriceCategoryVIP">
 
-        <Button
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtImageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ImageUrl"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/idBtnAddTicket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="20dp"
             android:text="Adaugă Ticket"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textAllCaps="false"
+            android:background="@drawable/rounded_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtImageUrl" />
-
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutImageUrl" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

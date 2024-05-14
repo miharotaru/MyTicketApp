@@ -1,5 +1,6 @@
 package com.example.myapplication.fragments.admin
 
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -9,11 +10,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.myapplication.R
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentAdminAddTicketBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,7 +27,6 @@ import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
-
 
 
 class AdminAddTicketFragment : Fragment() {
@@ -51,18 +54,59 @@ class AdminAddTicketFragment : Fragment() {
 
         getData()
         getHour()
+
         setDataBase()
     }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataBase() {
         db = FirebaseFirestore.getInstance()
 
+        var category = ""
+
+        val items2: ArrayList<String> = ArrayList()
+        items2.addAll(
+            listOf(
+                "Concert",
+                "Festival",
+                "Teatru",
+                "Balet/Dans",
+                "Expozitie",
+                "Comedie",
+                "Sport",
+                "Street food",
+                "Workshop",
+                "Targ"
+            )
+        )
+
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.list_favorite_item,
+            items2
+        )
+
+        val autoCompleteTextView = binding.idEdtCategory
+
+        autoCompleteTextView.setAdapter(adapter)
+
+        autoCompleteTextView.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) autoCompleteTextView.showDropDown()
+        }
+        autoCompleteTextView.setOnClickListener {
+            autoCompleteTextView.showDropDown()
+        }
+
+        autoCompleteTextView.onItemClickListener =
+            AdapterView.OnItemClickListener { adapter, view, i, l ->
+                category = adapter.getItemAtPosition(i).toString()
+            }
 
         addTicket = binding.idBtnAddTicket
         addTicket.setOnClickListener {
-            val category = binding.idEdtCategory.text.toString().trim()
+            //val category = binding.idEdtCategory.text.toString().trim()
+
             val city = binding.idEdtCity.text.toString().trim()
             val details = binding.idEdtDetails.text.toString().trim()
             val location = binding.idEdtLocation.text.toString().trim()
@@ -73,7 +117,6 @@ class AdminAddTicketFragment : Fragment() {
             val priceCategoryVIP = binding.idEdtPriceCategoryVIP.text.toString().toInt()
             val title = binding.idEdtTitle.text.toString().trim()
             val imageUrl = binding.idEdtImageUrl.text.toString().trim()
-
 
             val time1 = binding.idTVSelectedTime.text.toString()
             val date1 = binding.idTVSelectedDate.text.toString()
@@ -111,22 +154,58 @@ class AdminAddTicketFragment : Fragment() {
                 "urlToImage" to imageUrl
             )
 
-            val ticketCeva= Ticket(title,location,city,finalDate,details,numberTicket,priceCategoryOne, priceCategoryTwo
-                , priceCategoryThree, priceCategoryVIP,category, imageUrl)
+            val ticketCeva = Ticket(
+                title,
+                location,
+                city,
+                finalDate,
+                details,
+                numberTicket,
+                priceCategoryOne,
+                priceCategoryTwo,
+                priceCategoryThree,
+                priceCategoryVIP,
+                category,
+                imageUrl
+            )
 
             Log.d("AddTicket", "Attempting to add ticket with data: $ticketCeva")
             db.collection("tickets")
                 .add(ticketCeva)
-                .addOnSuccessListener {
-                        documentReference ->
-                    Log.d("AddTicketSuccess", "DocumentSnapshot added with ID: ${documentReference.id}")
+                .addOnSuccessListener { documentReference ->
+                    Log.d(
+                        "AddTicketSuccess",
+                        "DocumentSnapshot added with ID: ${documentReference.id}"
+                    )
                     Toast.makeText(context, "Ticket added successfully!", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
                     Log.e("AddTicketFailure", "Error adding document", e)
-                    Toast.makeText(requireContext(), "Error adding ticket: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error adding ticket: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
+            clearFragment()
         }
+    }
+
+    private fun clearFragment() {
+        binding.idEdtCity.text?.clear()
+        binding.idEdtDetails.text?.clear()
+        binding.idEdtLocation.text?.clear()
+        binding.idEdtNumberTicket.text?.clear()
+        binding.idEdtPriceCategoryOne.text?.clear()
+        binding.idEdtPriceCategoryTwo.text?.clear()
+        binding.idEdtPriceCategoryThree.text?.clear()
+        binding.idEdtPriceCategoryVIP.text?.clear()
+        binding.idEdtTitle.text?.clear()
+        binding.idEdtImageUrl.text?.clear()
+        binding.idTVSelectedTime.text="Selecteaza ora"
+        binding.idTVSelectedDate.text="Selecteaza data"
+
     }
 
     private fun getHour() {
@@ -134,29 +213,21 @@ class AdminAddTicketFragment : Fragment() {
         selectedTimeTV = binding.idTVSelectedTime
 
         pickTimeBtn.setOnClickListener {
-            // on below line we are getting
-            // the instance of our calendar.
+
             val c = Calendar.getInstance()
 
-            // on below line we are getting our hour, minute.
             val hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
 
-            // on below line we are initializing
-            // our Time Picker Dialog
             val timePickerDialog = TimePickerDialog(
                 context,
                 { view, hourOfDay, minute ->
-                    // on below line we are setting selected
-                    // time in our text view.
                     selectedTimeTV.setText("$hourOfDay:$minute")
                 },
                 hour,
                 minute,
                 false
             )
-            // at last we are calling show to
-            // display our time picker dialog.
             timePickerDialog.show()
         }
     }
@@ -166,37 +237,24 @@ class AdminAddTicketFragment : Fragment() {
         selectedDateTV = binding.idTVSelectedDate
 
         pickDateBtn.setOnClickListener {
-            // on below line we are getting
-            // the instance of our calendar.
             val c = Calendar.getInstance()
 
-            // on below line we are getting
-            // our day, month and year.
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
 
-            // on below line we are creating a
-            // variable for date picker dialog.
             val datePickerDialog = context?.let { it1 ->
                 DatePickerDialog(
-                    // on below line we are passing context.
                     it1,
                     { view, year, monthOfYear, dayOfMonth ->
-                        // on below line we are setting
-                        // date to our text view.
                         selectedDateTV.text =
                             (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
                     },
-                    // on below line we are passing year, month
-                    // and day for the selected date in our date picker.
                     year,
                     month,
                     day
                 )
             }
-            // at last we are calling show
-            // to display our date picker dialog.
             datePickerDialog?.show()
         }
     }

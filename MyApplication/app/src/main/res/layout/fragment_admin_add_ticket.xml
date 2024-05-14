@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.admin.AdminAddTicketFragment">
+    tools:context=".fragments.admin.AdminAddTicketFragment"
+    android:background="@drawable/gradient3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/tvNewTicketHeader"
@@ -17,7 +20,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Adăugare Ticket Nou"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -25,6 +28,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Selectarea datei cu stilizare îmbunătățită și imagine în loc de buton -->
+
+        <ImageView
+            android:id="@+id/idBtnPickDate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_calendar_month_mov"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedDate"
+            app:layout_constraintRight_toLeftOf="@id/idTVSelectedDate"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+
         <TextView
             android:id="@+id/idTVSelectedDate"
             android:layout_width="0dp"
@@ -33,254 +51,286 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="80dp"
             android:gravity="center_vertical"
-            android:text="Select Date"
-            android:textColor="@color/black"
+            android:text="Selecteaza data"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/idBtnPickDate"
+            app:layout_constraintLeft_toRightOf="@+id/idBtnPickDate"
             app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
 
         <ImageView
-            android:id="@+id/idBtnPickDate"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:id="@+id/idBtnPickTime"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/baseline_calendar_month_mov"
-            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedDate"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+            android:src="@drawable/baseline_watch_later_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/idBtnPickDate" />
 
-        <!-- Selectarea orei cu stilizare îmbunătățită și imagine în loc de buton -->
         <TextView
             android:id="@+id/idTVSelectedTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginTop="30dp"
             android:gravity="center_vertical"
-            android:text="Select Time"
-            android:textColor="@color/black"
+            android:text="Selecteaza ora"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/idBtnPickTime"
+            app:layout_constraintLeft_toRightOf="@+id/idBtnPickTime"
             app:layout_constraintTop_toBottomOf="@id/idTVSelectedDate" />
 
-        <ImageView
-            android:id="@+id/idBtnPickTime"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/baseline_watch_later_24"
-            app:layout_constraintBottom_toBottomOf="@id/idTVSelectedTime"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idBtnPickDate" />
-
-        <EditText
-            android:id="@+id/idEdtCategory"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutTitle"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Category"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idBtnPickTime" />
+            app:layout_constraintTop_toBottomOf="@id/idTVSelectedTime">
 
-        <EditText
-            android:id="@+id/idEdtCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="City"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtCategory" />
-
-        <EditText
-            android:id="@+id/idEdtDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Details"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtCity" />
-
-        <EditText
-            android:id="@+id/idEdtLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Location"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtDetails" />
-
-        <EditText
-            android:id="@+id/idEdtNumberTicket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Number of Tickets"
-            android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtLocation" />
-
-        <EditText
-            android:id="@+id/idEdtPriceCategoryOne"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Price Category One"
-            android:inputType="number"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtNumberTicket" />
-
-        <EditText
-            android:id="@+id/idEdtPriceCategoryTwo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Price Category Two"
-            android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryOne" />
-
-        <EditText
-            android:id="@+id/idEdtPriceCategoryThree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Price Category Three"
-            android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryTwo" />
-
-        <EditText
-            android:id="@+id/idEdtPriceCategoryVIP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Price Category VIP"
-            android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryThree" />
-
-        <EditText
-            android:id="@+id/idEdtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtPriceCategoryVIP" />
-
-        <EditText
-            android:id="@+id/idEdtImageUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Image URL"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/idEdtTitle" />
-        <RadioGroup
-
-            android:id="@+id/radioGroupPreferences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idEdtImageUrl"
-            app:layout_constraintBottom_toTopOf="@+id/idBtnAddTicket">
-
-            <CheckBox
-                android:id="@+id/checkBoxConcerts"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Concerte" />
+                android:hint="Titlul"
+                android:inputType="text"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutCategory"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutTitle"
+            android:hint="Categoria">
 
-            <CheckBox
-                android:id="@+id/checkBoxFestival"
-                android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:id="@+id/idEdtCategory"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Festival" />
+                android:textColor="@color/white"
+                android:inputType="none"
+                android:clickable="true"
+                android:focusable="false"
+                android:cursorVisible="false"
+               />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxTheatre"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutCity"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutCategory">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtCity"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Teatru" />
+                android:hint="Orasul"
+                android:inputType="text"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxBalet"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutLocation"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutCity">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtLocation"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Balet/Dans" />
+                android:hint="Locatia"
+                android:inputType="text"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxExpozitie"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutDetails"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutLocation">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtDetails"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Expozitie" />
+                android:hint="Detalii"
+                android:inputType="textLongMessage"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxComedie"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutNumberTicket"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutDetails">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtNumberTicket"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Comedie" />
+                android:hint="Numarul de bilete disponibile"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxSport"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryOne"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutNumberTicket">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryOne"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sport" />
+                android:hint="Pretul Categoriei Unu"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxStreetFood"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryTwo"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryOne">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryTwo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Street food" />
+                android:hint="Pretul Categoriei Doi"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxWorkshop"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPriceCategoryThree"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryTwo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryThree"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Workshop" />
+                android:hint="Pretul Categoriei Trei"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxTarg"
-                android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutPricePriceCategoryVIP"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPriceCategoryThree">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtPriceCategoryVIP"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Targ" />
+                android:hint="Pretul Categoriei VIP"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        </RadioGroup>
-        <Button
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idLayoutImageUrl"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:boxStrokeColor="@color/lavander"
+            app:hintTextColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutPricePriceCategoryVIP">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtImageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Url-ul imaginii"
+                android:inputType="text"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/idBtnAddTicket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="20dp"
             android:text="Adaugă Ticket"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textAllCaps="false"
+            android:background="@drawable/rounded_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupPreferences" />
-
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutImageUrl" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
