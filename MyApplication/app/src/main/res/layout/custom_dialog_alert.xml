@@ -38,7 +38,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:padding="20dp"
-            android:text="Ne pare rau de incovinient dar ati atins numarl maxim de bilete disponibile"
+            android:text="Ne pare rau de incovinient dar ati atins numarul maxim de bilete disponibile"
         >
 
         </TextView>

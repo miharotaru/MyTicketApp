@@ -50,7 +50,29 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
 
         setButtonsForNumberOfTicket()
         setSumOfTicketRadioButton()
+        onClickButton()
 
+    }
+
+    private fun onClickButton() {
+        binding.buttonBuyTicket.setOnClickListener {
+            if(priceCheck()) {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container_main_drawer2, SuccessPaymentFragment())
+                    .commit()
+            }else{
+                Toast.makeText(context, "Trebuie sa selectati o categorie de pret", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun priceCheck(): Boolean {
+        val radioButton1 = binding.radioButton1
+        val radioButton2 = binding.radioButton2
+        val radioButton3 = binding.radioButton3
+        val radioButton4 = binding.radioButton4
+
+        return radioButton1.isChecked || radioButton2.isChecked || radioButton3.isChecked || radioButton4.isChecked
     }
 
     private fun setSumOfTicketRadioButton() {
@@ -109,13 +131,6 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
     }
     private fun showInsufficientTicketsDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
-//        val dialogMessage = dialogView.findViewById<TextView>(R.id.dialog_message)
-//        dialogMessage.text = "Numar insuficient de bilete"
-
-//        val okButton = dialogView.findViewById<Button>(R.id.ok_button)
-//        okButton.setOnClickListener {
-//           alertDialog.dismiss()
-//        }
 
         val builder = AlertDialog.Builder(context)
         builder.setView(dialogView)
@@ -173,5 +188,4 @@ private lateinit var binding: FragmentPaymentDetailsTicketBinding
             Log.d("Fragment_ticketItem", "Nu s-a transmis corect argumentul")
         }
     }
-
 }

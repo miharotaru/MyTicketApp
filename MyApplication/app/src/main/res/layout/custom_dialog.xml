@@ -40,7 +40,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_logo_alert_dialog"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Ne pare rau de incovinient dar ati atins numarl maxim de bilete disponibile" />
+            android:text="Ne pare rau de incovinient dar ati atins numarul maxim de bilete disponibile" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

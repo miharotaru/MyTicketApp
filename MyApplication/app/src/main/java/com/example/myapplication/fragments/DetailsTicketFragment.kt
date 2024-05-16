@@ -93,8 +93,8 @@ class DetailsTicketFragment : Fragment() {
                 binding.tvTitleTicketDetailsTicketFromTicket.text = ticket.title
                 binding.tvTextDetailsTicket.text = ticket.details
 //
-                //binding.tvDateDownDetailsTicket.text=setTime(ticket.data)
-                //binding.tvDateUpDetailsTicket.text=setDataRo(ticket.data)
+                binding.tvDateDownDetailsTicket.text=setTime(ticket.data.substring(0,16))
+                binding.tvDateUpDetailsTicket.text=setDataRo(ticket.data.substring(0,16))
                 binding.tvLocationCityFrDetails.text="${ticket.location}, ${ticket.city}"
 
                 Picasso.get().load(ticket.urlToImage).into(binding.imageDetailsTicket)
@@ -106,7 +106,7 @@ class DetailsTicketFragment : Fragment() {
     }
 
     private fun setTime(data: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
         val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
         val parsedDate = inputFormat.parse(data)
@@ -114,20 +114,12 @@ class DetailsTicketFragment : Fragment() {
     }
 
     private fun setDataRo(date: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
         val outputFormat = SimpleDateFormat("d MMMM", Locale("ro"))
 
         val parsedDate = inputFormat.parse(date)
         val monthName = outputFormat.format(parsedDate)
 
         return monthName
-    }
-
-    private fun setData(date: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("d MMMM", Locale.getDefault())
-
-        val parsedDate = inputFormat.parse(date)
-        return outputFormat.format(parsedDate)
     }
 }

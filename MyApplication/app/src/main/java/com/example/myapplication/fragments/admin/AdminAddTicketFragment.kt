@@ -119,9 +119,7 @@ class AdminAddTicketFragment : Fragment() {
 
 
             var imageUrl = binding.idEdtImageUrl.text.toString()
-            "https://teatrulioncreanga.ro/wp-content/uploads/2022/11/TILL_Site-600-x450.png".also {
-                imageUrl = it
-            }
+
 
             if (city.isEmpty() || details.isEmpty() || location.isEmpty() || title.isEmpty()
                 || time1 == getString(R.string.selecteaza_ora) || date1 == getString(R.string.selecteaza_data)
@@ -153,6 +151,13 @@ class AdminAddTicketFragment : Fragment() {
                 } catch (e: Exception) {
                     println("Eroare la parsarea datei sau a timpului: ${e.message}")
                 }
+
+
+                if (imageUrl.isEmpty()) {
+                    imageUrl =
+                        "https://teatrulioncreanga.ro/wp-content/uploads/2022/11/TILL_Site-600-x450.png"
+                }
+
 
                 val ticketCeva = Ticket(
                     title,
@@ -196,13 +201,14 @@ class AdminAddTicketFragment : Fragment() {
     }
 
     private fun isNotificationSetOn(ticket: Ticket) {
-        val checkBox= binding.checkBoxNotification
+        val checkBox = binding.checkBoxNotification
 
         if (checkBox.isChecked) {
             val someIntValue = 1
 
             context?.let { ctx ->
-                val sharedPreferences: SharedPreferences = ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                val sharedPreferences: SharedPreferences =
+                    ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
                 val gson = Gson()
                 val ticketJson = gson.toJson(ticket)
@@ -278,6 +284,9 @@ class AdminAddTicketFragment : Fragment() {
                     day
                 )
             }
+            // Set the minimum date to the current date
+            datePickerDialog?.datePicker?.minDate = c.timeInMillis
+
             datePickerDialog?.show()
         }
     }

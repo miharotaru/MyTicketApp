@@ -41,7 +41,6 @@ class HomeFragment : Fragment(), OnClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var database: FirebaseFirestore
     private lateinit var adapter: TicketAdapter
-   // private lateinit var ticket:Ticket
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,30 +52,7 @@ class HomeFragment : Fragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataFirebase()
-//        ticket=Ticket("Titlul","locatiom","city","12121",
-//            "detalii",12,12,12,
-//            12,12,"dsa")
-        //setNotification(ticket)
-
-        //notificationTest()
-
         isNotificationOn()
-    }
-
-    private fun notificationTest(){
-//        val someIntValue = 1
-//
-//        context?.let { ctx ->
-//            val sharedPreferences: SharedPreferences = ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//
-//            val gson = Gson()
-//            val ticketJson = gson.toJson(ticket)
-//
-//            val editor = sharedPreferences.edit()
-//            editor.putString("ticketCeva", ticketJson)
-//            editor.putInt("someIntValue", someIntValue)
-//            editor.apply()
-//        }
     }
 
     private fun isNotificationOn() {
@@ -99,8 +75,8 @@ class HomeFragment : Fragment(), OnClickListener {
                 if (ticket != null) {
 
                     setNotification(ticket)
-                }else{
-                    Log.d("ticket","ticketul e nul :((")
+                } else {
+                    Log.d("ticket", "ticketul e nul :((")
                 }
             }
 
@@ -143,13 +119,15 @@ class HomeFragment : Fragment(), OnClickListener {
         }
 
         val bigTextStyle = NotificationCompat.BigTextStyle()
-            .bigText("Acesta este textul extins al notificării." +
-                    " Are loc la " +ticket.location + " categoria "+ticket.category+
-                    "detalii utilizatorului. Textul extins permite afișarea " +
-                    "unei cantități mai mari de informații.")
+            .bigText(
+                "Acesta este textul extins al notificării." +
+                        " Are loc la " + ticket.location + " categoria " + ticket.category +
+                        "detalii utilizatorului. Textul extins permite afișarea " +
+                        "unei cantități mai mari de informații."
+            )
 
 
-        val builder2 = NotificationCompat.Builder(requireContext(),  CHANNEL_ID).apply {
+        val builder2 = NotificationCompat.Builder(requireContext(), CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ticket) // Icon-ul mic
             setContentTitle("Nu rata evenimentul acesta" + ticket.title)
             setContentText("This is a test notification from My App")
@@ -172,7 +150,7 @@ class HomeFragment : Fragment(), OnClickListener {
         notificationManager.notify(
             1,
             builder2.build()
-        )  // '1' este ID-ul notificării, asigură-te că este unic // '1' este ID-ul notificării, asigură-te că este unic pentru fiecare notificare
+        )
     }
 
     //luam datele din firebase si le punem in lista de tichete
