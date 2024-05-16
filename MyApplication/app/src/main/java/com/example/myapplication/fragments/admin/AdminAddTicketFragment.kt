@@ -23,6 +23,7 @@ import com.example.myapplication.R
 import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentAdminAddTicketBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -116,7 +117,7 @@ class AdminAddTicketFragment : Fragment() {
             val time1 = binding.idTVSelectedTime.text.toString()
             val date1 = binding.idTVSelectedDate.text.toString()
 
-            //SA NU ATINGI CA MERGE ASA
+
             var imageUrl = binding.idEdtImageUrl.text.toString()
             "https://teatrulioncreanga.ro/wp-content/uploads/2022/11/TILL_Site-600-x450.png".also {
                 imageUrl = it
@@ -195,23 +196,23 @@ class AdminAddTicketFragment : Fragment() {
     }
 
     private fun isNotificationSetOn(ticket: Ticket) {
-//        val checkBox= binding.checkBoxNotification
-//
-//        if (checkBox.isChecked) {
-//            val someIntValue = 1
-//
-//            context?.let { ctx ->
-//                val sharedPreferences: SharedPreferences = ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//
-//                val gson = Gson()
-//                val ticketJson = gson.toJson(ticket)
-//
-//                val editor = sharedPreferences.edit()
-//                editor.putString("ticketCeva", ticketJson)
-//                editor.putInt("someIntValue", someIntValue)
-//                editor.apply()
-//            }
-//        }
+        val checkBox= binding.checkBoxNotification
+
+        if (checkBox.isChecked) {
+            val someIntValue = 1
+
+            context?.let { ctx ->
+                val sharedPreferences: SharedPreferences = ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+                val gson = Gson()
+                val ticketJson = gson.toJson(ticket)
+
+                val editor = sharedPreferences.edit()
+                editor.putString("ticketCeva", ticketJson)
+                editor.putInt("someIntValue", someIntValue)
+                editor.apply()
+            }
+        }
     }
 
     private fun clearFragment() {

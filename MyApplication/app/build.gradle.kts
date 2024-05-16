@@ -67,4 +67,6 @@ dependencies {
 
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation ("com.google.code.gson:gson:2.10.1")
 }

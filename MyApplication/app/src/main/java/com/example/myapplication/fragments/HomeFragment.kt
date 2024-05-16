@@ -31,6 +31,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.gson.Gson
 
 
 const val CHANNEL_ID = "channelId"
@@ -40,6 +41,7 @@ class HomeFragment : Fragment(), OnClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var database: FirebaseFirestore
     private lateinit var adapter: TicketAdapter
+   // private lateinit var ticket:Ticket
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,40 +53,63 @@ class HomeFragment : Fragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataFirebase()
-        //setNotification()
+//        ticket=Ticket("Titlul","locatiom","city","12121",
+//            "detalii",12,12,12,
+//            12,12,"dsa")
+        //setNotification(ticket)
+
+        //notificationTest()
+
+        isNotificationOn()
     }
 
-//    private fun isNotificationOn() {
-//        var someIntValue: Int = -1
+    private fun notificationTest(){
+//        val someIntValue = 1
+//
 //        context?.let { ctx ->
-//            val sharedPreferences: SharedPreferences =
-//                ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+//            val sharedPreferences: SharedPreferences = ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 //
-//            // Recuperarea JSON-ului din SharedPreferences
-//            val ticketJson = sharedPreferences.getString("ticketCeva", null)
-//
-//            // Deserializarea obiectului Ticket
 //            val gson = Gson()
-//            val ticket: Ticket? = gson.fromJson(ticketJson, Ticket::class.java)
+//            val ticketJson = gson.toJson(ticket)
 //
-//            someIntValue =
-//                sharedPreferences.getInt("someIntValue", -1) // -1 este valoarea implicită
-//
-//            if (someIntValue == 1) {
-//                if (ticket != null) {
-//
-//                    setNotification(ticket)
-//                }else{
-//                    Log.d("ticket","ticketul e nul :((")
-//                }
-//            }
-//
-//            someIntValue = 0
 //            val editor = sharedPreferences.edit()
+//            editor.putString("ticketCeva", ticketJson)
 //            editor.putInt("someIntValue", someIntValue)
 //            editor.apply()
 //        }
-//    }
+    }
+
+    private fun isNotificationOn() {
+        var someIntValue: Int = -1
+        context?.let { ctx ->
+            val sharedPreferences: SharedPreferences =
+                ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+            // Recuperarea JSON-ului din SharedPreferences
+            val ticketJson = sharedPreferences.getString("ticketCeva", null)
+
+            // Deserializarea obiectului Ticket
+            val gson = Gson()
+            val ticket: Ticket? = gson.fromJson(ticketJson, Ticket::class.java)
+
+            someIntValue =
+                sharedPreferences.getInt("someIntValue", -1) // -1 este valoarea implicită
+
+            if (someIntValue == 1) {
+                if (ticket != null) {
+
+                    setNotification(ticket)
+                }else{
+                    Log.d("ticket","ticketul e nul :((")
+                }
+            }
+
+            someIntValue = 0
+            val editor = sharedPreferences.edit()
+            editor.putInt("someIntValue", someIntValue)
+            editor.apply()
+        }
+    }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -110,8 +135,26 @@ class HomeFragment : Fragment(), OnClickListener {
 
         val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID).apply {
             setSmallIcon(R.drawable.ticket)
-            setContentTitle("Ticket Title")
+            setContentTitle(ticket.title)
+            setContentText(ticket.category)
+            priority = NotificationCompat.PRIORITY_DEFAULT
+            setContentIntent(pendingIntent)
+            setAutoCancel(true)
+        }
+
+        val bigTextStyle = NotificationCompat.BigTextStyle()
+            .bigText("Acesta este textul extins al notificării." +
+                    " Are loc la " +ticket.location + " categoria "+ticket.category+
+                    "detalii utilizatorului. Textul extins permite afișarea " +
+                    "unei cantități mai mari de informații.")
+
+
+        val builder2 = NotificationCompat.Builder(requireContext(),  CHANNEL_ID).apply {
+            setSmallIcon(R.drawable.ticket) // Icon-ul mic
+            setContentTitle("Nu rata evenimentul acesta" + ticket.title)
             setContentText("This is a test notification from My App")
+            //setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.large_icon)) // Icon-ul mare
+            setStyle(bigTextStyle) // Sau folosește bigPictureStyle pentru stilul de imagine mare
             priority = NotificationCompat.PRIORITY_DEFAULT
             setContentIntent(pendingIntent)
             setAutoCancel(true)
@@ -128,7 +171,7 @@ class HomeFragment : Fragment(), OnClickListener {
         }
         notificationManager.notify(
             1,
-            builder.build()
+            builder2.build()
         )  // '1' este ID-ul notificării, asigură-te că este unic // '1' este ID-ul notificării, asigură-te că este unic pentru fiecare notificare
     }
 

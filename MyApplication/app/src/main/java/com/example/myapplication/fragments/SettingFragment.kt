@@ -106,7 +106,6 @@ class SettingFragment : Fragment() {
             }
         }
 
-
         if (userPreferences != null) {
             val preferencesText = userPreferences?.joinToString(separator = ", ")
 
