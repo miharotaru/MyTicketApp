@@ -3,6 +3,8 @@ package com.example.myapplication.fragments.admin
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -30,8 +32,6 @@ import java.util.Calendar
 
 
 class AdminAddTicketFragment : Fragment() {
-
-
     lateinit var pickDateBtn: ImageView
     lateinit var selectedDateTV: TextView
     lateinit var pickTimeBtn: ImageView
@@ -39,12 +39,14 @@ class AdminAddTicketFragment : Fragment() {
     lateinit var addTicket: Button
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentAdminAddTicketBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAdminAddTicketBinding.inflate(inflater, container, false)
+        db = FirebaseFirestore.getInstance()
         return binding.root
     }
 
@@ -60,10 +62,8 @@ class AdminAddTicketFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataBase() {
-        db = FirebaseFirestore.getInstance()
 
         var category = ""
-
         val items2: ArrayList<String> = ArrayList()
         items2.addAll(
             listOf(
@@ -79,8 +79,6 @@ class AdminAddTicketFragment : Fragment() {
                 "Targ"
             )
         )
-
-
         val adapter = ArrayAdapter(
             requireContext(),
             R.layout.list_favorite_item,
@@ -102,94 +100,118 @@ class AdminAddTicketFragment : Fragment() {
             AdapterView.OnItemClickListener { adapter, view, i, l ->
                 category = adapter.getItemAtPosition(i).toString()
             }
+//------ AICI SE SETEAZA CATEGORIA
 
         addTicket = binding.idBtnAddTicket
         addTicket.setOnClickListener {
-            //val category = binding.idEdtCategory.text.toString().trim()
-
-            val city = binding.idEdtCity.text.toString().trim()
-            val details = binding.idEdtDetails.text.toString().trim()
-            val location = binding.idEdtLocation.text.toString().trim()
-            val numberTicket = binding.idEdtNumberTicket.text.toString().toInt() ?: 0
-            val priceCategoryOne = binding.idEdtPriceCategoryOne.text.toString().toInt() ?: 0
-            val priceCategoryTwo = binding.idEdtPriceCategoryTwo.text.toString().toInt()
-            val priceCategoryThree = binding.idEdtPriceCategoryThree.text.toString().toInt()
-            val priceCategoryVIP = binding.idEdtPriceCategoryVIP.text.toString().toInt()
-            val title = binding.idEdtTitle.text.toString().trim()
-            val imageUrl = binding.idEdtImageUrl.text.toString().trim()
-
+            val city = binding.idEdtCity.text.toString()
+            val details = binding.idEdtDetails.text.toString()
+            val location = binding.idEdtLocation.text.toString()
+            val numberTicket = binding.idEdtNumberTicket.text.toString()
+            val priceCategoryOne = binding.idEdtPriceCategoryOne.text.toString()
+            val priceCategoryTwo = binding.idEdtPriceCategoryTwo.text.toString()
+            val priceCategoryThree = binding.idEdtPriceCategoryThree.text.toString()
+            val priceCategoryVIP = binding.idEdtPriceCategoryVIP.text.toString()
+            val title = binding.idEdtTitle.text.toString()
             val time1 = binding.idTVSelectedTime.text.toString()
             val date1 = binding.idTVSelectedDate.text.toString()
-            var finalDate = ""
 
-            try {
-                val date = LocalDate.parse(date1, DateTimeFormatter.ofPattern("d-M-yyyy"))
-                val time = LocalTime.parse(time1, DateTimeFormatter.ofPattern("H:m"))
-
-
-                val dateTime = LocalDateTime.of(date, time)
-                val isoDateTime =
-                    dateTime.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
-
-                finalDate = "$dateTime.321Z"
-
-            } catch (e: Exception) {
-                println("Eroare la parsarea datei sau a timpului: ${e.message}")
+            //SA NU ATINGI CA MERGE ASA
+            var imageUrl = binding.idEdtImageUrl.text.toString()
+            "https://teatrulioncreanga.ro/wp-content/uploads/2022/11/TILL_Site-600-x450.png".also {
+                imageUrl = it
             }
 
-            // if (!isAdded) return@setOnClickListener
+            if (city.isEmpty() || details.isEmpty() || location.isEmpty() || title.isEmpty()
+                || time1 == getString(R.string.selecteaza_ora) || date1 == getString(R.string.selecteaza_data)
+                || category.isEmpty()
+                || priceCategoryOne.isEmpty() || priceCategoryTwo.isEmpty()
+                || priceCategoryThree.isEmpty() || priceCategoryVIP.isEmpty()
+            ) {
+                Toast.makeText(
+                    context,
+                    "Ai campuri necompletate",
+                    Toast.LENGTH_LONG
+                ).show()
 
-            val ticket = hashMapOf(
-                "category" to category,
-                "city" to city,
-                "data" to finalDate,
-                "details" to details,
-                "location" to location,
-                "numberTickets" to numberTicket,
-                "priceCategoryOne" to priceCategoryOne,
-                "priceCategoryThree" to priceCategoryThree,
-                "priceCategoryTwo" to priceCategoryTwo,
-                "priceCategoryVIP" to priceCategoryVIP,
-                "title" to title,
-                "urlToImage" to imageUrl
-            )
+            } else {
+                var finalDate = ""
 
-            val ticketCeva = Ticket(
-                title,
-                location,
-                city,
-                finalDate,
-                details,
-                numberTicket,
-                priceCategoryOne,
-                priceCategoryTwo,
-                priceCategoryThree,
-                priceCategoryVIP,
-                category,
-                imageUrl
-            )
+                try {
+                    val date = LocalDate.parse(date1, DateTimeFormatter.ofPattern("d-M-yyyy"))
+                    val time = LocalTime.parse(time1, DateTimeFormatter.ofPattern("H:m"))
 
-            Log.d("AddTicket", "Attempting to add ticket with data: $ticketCeva")
-            db.collection("tickets")
-                .add(ticketCeva)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(
-                        "AddTicketSuccess",
-                        "DocumentSnapshot added with ID: ${documentReference.id}"
-                    )
-                    Toast.makeText(context, "Ticket added successfully!", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { e ->
-                    Log.e("AddTicketFailure", "Error adding document", e)
-                    Toast.makeText(
-                        requireContext(),
-                        "Error adding ticket: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //if (date)
+
+                    val dateTime = LocalDateTime.of(date, time)
+                    val isoDateTime =
+                        dateTime.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
+
+                    finalDate = "$dateTime.321Z"
+
+                } catch (e: Exception) {
+                    println("Eroare la parsarea datei sau a timpului: ${e.message}")
                 }
 
-            clearFragment()
+                val ticketCeva = Ticket(
+                    title,
+                    location,
+                    city,
+                    finalDate,
+                    details,
+                    numberTicket.toInt(),
+                    priceCategoryOne.toInt(),
+                    priceCategoryTwo.toInt(),
+                    priceCategoryThree.toInt(),
+                    priceCategoryVIP.toInt(),
+                    category,
+                    imageUrl
+                )
+
+                Log.d("AddTicket", "Attempting to add ticket with data: $ticketCeva")
+                db.collection("tickets")
+                    .add(ticketCeva)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(
+                            "AddTicketSuccess",
+                            "DocumentSnapshot added with ID: ${documentReference.id}"
+                        )
+                        Toast.makeText(context, "Ticket added successfully!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("AddTicketFailure", "Error adding document", e)
+                        Toast.makeText(
+                            requireContext(),
+                            "Error adding ticket: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                clearFragment()
+                isNotificationSetOn(ticketCeva)
+            }
         }
+    }
+
+    private fun isNotificationSetOn(ticket: Ticket) {
+//        val checkBox= binding.checkBoxNotification
+//
+//        if (checkBox.isChecked) {
+//            val someIntValue = 1
+//
+//            context?.let { ctx ->
+//                val sharedPreferences: SharedPreferences = ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+//
+//                val gson = Gson()
+//                val ticketJson = gson.toJson(ticket)
+//
+//                val editor = sharedPreferences.edit()
+//                editor.putString("ticketCeva", ticketJson)
+//                editor.putInt("someIntValue", someIntValue)
+//                editor.apply()
+//            }
+//        }
     }
 
     private fun clearFragment() {
@@ -203,8 +225,8 @@ class AdminAddTicketFragment : Fragment() {
         binding.idEdtPriceCategoryVIP.text?.clear()
         binding.idEdtTitle.text?.clear()
         binding.idEdtImageUrl.text?.clear()
-        binding.idTVSelectedTime.text="Selecteaza ora"
-        binding.idTVSelectedDate.text="Selecteaza data"
+        binding.idTVSelectedTime.text = getString(R.string.selecteaza_ora)
+        binding.idTVSelectedDate.text = getString(R.string.selecteaza_data)
 
     }
 

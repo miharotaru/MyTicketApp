@@ -108,9 +108,11 @@ class FavoriteTicketsFragment : Fragment(), OnClickListener {
         }
 
         //userTicketList=null
-        if(userFavoriteTicketList.isNullOrEmpty()){
-            binding.tvFrontTextFavorite.visibility = View.VISIBLE
-        }else{
+        if (userFavoriteTicketList.isNullOrEmpty()) {
+            binding.tvFrontTextFavorite.text =
+                "Din pacate nu ai selectat nicio preferinta. " +
+                        "Poti sa te duci in setari si sa setezi de acolo"
+        } else {
             initializareAdapterFavorite()
         }
     }

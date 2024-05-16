@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -50,11 +51,42 @@ class HomeFragment : Fragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataFirebase()
-        setNotification()
+        //setNotification()
     }
 
+//    private fun isNotificationOn() {
+//        var someIntValue: Int = -1
+//        context?.let { ctx ->
+//            val sharedPreferences: SharedPreferences =
+//                ctx.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+//
+//            // Recuperarea JSON-ului din SharedPreferences
+//            val ticketJson = sharedPreferences.getString("ticketCeva", null)
+//
+//            // Deserializarea obiectului Ticket
+//            val gson = Gson()
+//            val ticket: Ticket? = gson.fromJson(ticketJson, Ticket::class.java)
+//
+//            someIntValue =
+//                sharedPreferences.getInt("someIntValue", -1) // -1 este valoarea implicită
+//
+//            if (someIntValue == 1) {
+//                if (ticket != null) {
+//
+//                    setNotification(ticket)
+//                }else{
+//                    Log.d("ticket","ticketul e nul :((")
+//                }
+//            }
+//
+//            someIntValue = 0
+//            val editor = sharedPreferences.edit()
+//            editor.putInt("someIntValue", someIntValue)
+//            editor.apply()
+//        }
+//    }
+
     private fun createNotificationChannel() {
-        // Verifică dacă versiunea de Android este Oreo (API 26) sau mai nouă, deoarece canalele de notificare sunt necesare doar în aceste versiuni.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Notificare canal"
             val descriptionText = "Descriere canal de notificare"
@@ -62,7 +94,6 @@ class HomeFragment : Fragment(), OnClickListener {
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
-            // Înregistrează canalul în sistem
             val notificationManager: NotificationManager = requireActivity().getSystemService(
                 Context.NOTIFICATION_SERVICE
             ) as NotificationManager
@@ -70,8 +101,8 @@ class HomeFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun setNotification() {
-        createNotificationChannel() // Asigură-te că aceasta este apelată undeva în cod
+    private fun setNotification(ticket: Ticket) {
+        createNotificationChannel()
 
         val intent = Intent(context, DashboardActivity::class.java)
         val pendingIntent =
@@ -123,7 +154,6 @@ class HomeFragment : Fragment(), OnClickListener {
             }
 
         }
-
         )
     }
 

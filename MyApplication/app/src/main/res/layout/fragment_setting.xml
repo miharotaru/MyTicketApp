@@ -1,14 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingFragment">
+    tools:context=".fragments.SettingFragment"
+    android:padding="20dp"
+    android:background="@drawable/gradient3">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvSettingsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Aici poti modifica preferintele tale "
+        android:textStyle="bold"
+        android:textColor="@color/white">
 
-</FrameLayout>
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvSettingsHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Preferintele tale sunt:"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvSettingsHeader">
+
+    </TextView>
+
+
+    <RadioGroup
+        android:id="@+id/radioGroupPreferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSettingsHeaderText">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/checkBoxConcerts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Concert" />
+
+
+            <CheckBox
+                android:id="@+id/checkBoxFestival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Festival" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTheatre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Teatru" />
+
+            <CheckBox
+                android:id="@+id/checkBoxBalet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Balet/Dans" />
+
+            <CheckBox
+                android:id="@+id/checkBoxExpozitie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Expozitie" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/checkBoxComedie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Comedie" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Sport" />
+
+            <CheckBox
+                android:id="@+id/checkBoxStreetFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Street food" />
+
+            <CheckBox
+                android:id="@+id/checkBoxWorkshop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Workshop" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTarg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:outlineSpotShadowColor="@color/lavander"
+                android:textColor="@color/white"
+                android:text="Targ" />
+        </LinearLayout>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvSettingsWarningText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="20dp"
+
+        android:layout_marginTop="20dp"
+        android:text="Trebuie sa selectati mimin o categorie"
+        android:textStyle="bold"
+        android:textColor="#E91E63"
+        app:layout_constraintBottom_toTopOf="@id/buttonSetarePreferinte"
+        android:visibility="invisible"
+        android:layout_marginBottom="30dp">
+
+    </TextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSetarePreferinte"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/rounded_button"
+        android:text="Setare preferinte"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

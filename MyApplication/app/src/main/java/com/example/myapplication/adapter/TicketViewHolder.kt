@@ -15,7 +15,6 @@ class TicketViewHolder(private val binding: TicketItemBinding)
     val cardTicketView = binding.cardTicket
     fun bind(item: Ticket){
         binding.tvNameTicket.text=item.title
-        //binding.tvDateTicket.text=setData(item.data)
         binding.tvDateTicket.text= firstTenCaracters(item.data)
         binding.tvLocationTicket.text="${item.location}, ${item.city}"
         setImage(item)
@@ -24,14 +23,6 @@ class TicketViewHolder(private val binding: TicketItemBinding)
 
     private fun firstTenCaracters(date:String):String{
         return date.substring(0,10)
-    }
-
-    private fun setData(date: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm.SSSX", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-
-        val parsedDate = inputFormat.parse(date)
-        return outputFormat.format(parsedDate)
     }
 
     private fun setImage(item: Ticket) {
