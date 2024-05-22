@@ -58,7 +58,7 @@
         android:id="@+id/showAllButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show_all"
+        android:text="Arata toate biletele"
         app:layout_constraintTop_toBottomOf="@id/recycleview_ticket_item_fragment_home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

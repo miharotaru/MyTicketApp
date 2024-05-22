@@ -43,6 +43,11 @@ class AdminHomeFragment : Fragment(), OnClickListener {
         binding.imageSearchHomeAllObject.setOnClickListener{
             getDataFirebase()
         }
+
+        binding.showAllButton.setOnClickListener{
+            getDataFirebase()
+        }
+
         return binding.root
     }
 
