@@ -33,11 +33,11 @@ import java.util.Calendar
 
 
 class AdminAddTicketFragment : Fragment() {
-    lateinit var pickDateBtn: ImageView
-    lateinit var selectedDateTV: TextView
-    lateinit var pickTimeBtn: ImageView
-    lateinit var selectedTimeTV: TextView
-    lateinit var addTicket: Button
+    private lateinit var pickDateBtn: ImageView
+    private lateinit var selectedDateTV: TextView
+    private lateinit var pickTimeBtn: ImageView
+    private lateinit var selectedTimeTV: TextView
+    private lateinit var addTicket: Button
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: FragmentAdminAddTicketBinding
 
@@ -194,7 +194,7 @@ class AdminAddTicketFragment : Fragment() {
                         ).show()
                     }
 
-                cleanAll()
+                cleanAll2()
                 isNotificationSetOn(ticketCeva)
             }
         }
@@ -221,7 +221,7 @@ class AdminAddTicketFragment : Fragment() {
         }
     }
 
-    private fun cleanAll() {
+    private fun cleanAll2() {
         binding.idEdtCity.text?.clear()
         binding.idEdtDetails.text?.clear()
         binding.idEdtLocation.text?.clear()
