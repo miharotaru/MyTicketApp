@@ -26,5 +26,4 @@ class TicketAdapter(
             onClickListener.onClickListenerDetails(position)
         }
     }
-
 }

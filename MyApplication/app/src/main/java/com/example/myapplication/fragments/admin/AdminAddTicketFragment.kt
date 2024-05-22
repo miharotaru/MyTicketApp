@@ -194,7 +194,7 @@ class AdminAddTicketFragment : Fragment() {
                         ).show()
                     }
 
-                clearFragment()
+                cleanAll()
                 isNotificationSetOn(ticketCeva)
             }
         }
@@ -221,7 +221,7 @@ class AdminAddTicketFragment : Fragment() {
         }
     }
 
-    private fun clearFragment() {
+    private fun cleanAll() {
         binding.idEdtCity.text?.clear()
         binding.idEdtDetails.text?.clear()
         binding.idEdtLocation.text?.clear()

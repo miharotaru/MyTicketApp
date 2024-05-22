@@ -1,13 +1,14 @@
 package com.example.myapplication.fragments.admin
 
 import android.annotation.SuppressLint
-import android.os.Binder
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TicketAdapter
@@ -15,10 +16,8 @@ import com.example.myapplication.classes.Ticket
 import com.example.myapplication.databinding.FragmentAdminHomeBinding
 import com.example.myapplication.interfaces.OnClickListener
 import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.gson.Gson
 
 
 class AdminHomeFragment : Fragment(), OnClickListener {
@@ -27,6 +26,7 @@ class AdminHomeFragment : Fragment(), OnClickListener {
     private lateinit var database: FirebaseFirestore
     private lateinit var adapter: TicketAdapter
     private var ticketList: ArrayList<Ticket>? = ArrayList()
+    private var ticketPostIdList: ArrayList<TicketId>? = ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,70 +35,40 @@ class AdminHomeFragment : Fragment(), OnClickListener {
 
         val searchButton = binding.searchButton
         val searchEditText = binding.searchEditText
-        val ticketsListView = binding.recycleviewTicketItemFragmentHome
 
         searchButton.setOnClickListener {
             val searchQuery = searchEditText.text.toString()
             searchTickets(searchQuery)
         }
+        binding.imageSearchHomeAllObject.setOnClickListener{
+            getDataFirebase()
+        }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // getDataFirebase()
-    }
-
-
-    fun searchTickets(query: String) {
+    private fun searchTickets(query: String) {
         database = FirebaseFirestore.getInstance()
         database.collection("tickets")
-            .whereEqualTo("title", query)  // Ajustează acest câmp conform structurii tale de date
+            .whereEqualTo("title", query)
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     Log.e("Firestore error", error.message.toString())
                     return@addSnapshotListener
                 }
-                ticketList?.clear()  // Golește lista pentru a afișa doar rezultatele căutării
+                ticketList?.clear()
 
                 for (doc in value!!) {
                     val ticket = doc.toObject(Ticket::class.java).apply {
-                        id = doc.id  // Setează ID-ul aici
+                        id = doc.id
                     }
                     ticketList?.add(ticket)
                 }
-                initAdapter()  // Reînnoiește adapterul cu rezultatele filtrate
-            }
-    }
+                Log.d("Search", "Found ${ticketList?.size} tickets matching the query")
 
-    private fun getTickets() {
-        database = FirebaseFirestore.getInstance()
-        database.collection("tickets").addSnapshotListener { value, error ->
-            if (error != null) {
-                Log.e("Firestore error", error.message.toString())
-                return@addSnapshotListener
-            }
-            ticketList?.clear()  // Golește lista la fiecare actualizare pentru a evita duplicatele
-
-            value?.documentChanges?.forEach { dc ->
-                val ticket = dc.document.toObject(Ticket::class.java).apply {
-                    id = dc.document.id  // Setează ID-ul aici
-                }
-                when (dc.type) {
-                    DocumentChange.Type.ADDED -> ticketList?.add(ticket)
-                    DocumentChange.Type.MODIFIED -> {
-                        val index = ticketList?.indexOfFirst { it.id == ticket.id }
-                        if (index != null && index >= 0) {
-                            ticketList?.set(index, ticket)
-                        }
-                    }
-
-                    DocumentChange.Type.REMOVED -> {
-                        ticketList?.removeIf { it.id == ticket.id }
-                    }
+                activity?.runOnUiThread {
+                    initAdapter()  // Asigură-te că se rulează pe thread-ul principal
                 }
             }
-        }
     }
 
     private fun getDataFirebase() {
@@ -110,12 +80,17 @@ class AdminHomeFragment : Fragment(), OnClickListener {
             }
             ticketList?.clear()  // Golește lista la fiecare actualizare pentru a evita duplicatele
 
+            var posTicket=0
             value?.documentChanges?.forEach { dc ->
                 val ticket = dc.document.toObject(Ticket::class.java).apply {
                     id = dc.document.id  // Setează ID-ul aici
                 }
                 when (dc.type) {
-                    DocumentChange.Type.ADDED -> ticketList?.add(ticket)
+                    DocumentChange.Type.ADDED -> {
+                        ticketList?.add(ticket)
+                        ticketPostIdList?.add(TicketId(dc.document.id,posTicket))
+                        posTicket += 1
+                    }
                     DocumentChange.Type.MODIFIED -> {
                         val index = ticketList?.indexOfFirst { it.id == ticket.id }
                         if (index != null && index >= 0) {
@@ -144,9 +119,33 @@ class AdminHomeFragment : Fragment(), OnClickListener {
         adapter.notifyDataSetChanged()
     }
 
-
     override fun onClickListenerDetails(ticketPos: Int) {
-        //TODO("Not yet implemented")
+        val idValue = ticketPostIdList?.get(ticketPos)?.ticketId
+
+        context?.let { ctx ->
+            val sharedPreferences: SharedPreferences =
+                ctx.getSharedPreferences("MyPrefs2", Context.MODE_PRIVATE)
+
+            val ticket= ticketList?.get(ticketPos)
+            val gson = Gson()
+            val ticketJson = gson.toJson(ticket)
+
+            val editor = sharedPreferences.edit()
+            editor.putString("ticketCeva", ticketJson)
+            editor.putString("idValue", idValue)
+            editor.apply()
+        }
+
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container_main_drawer3, AdminEditTicketFragment())
+        transaction.addToBackStack(null)
+
+        transaction.commit()
     }
 
 }
+
+data class TicketId(
+    var ticketId: String = "",
+    var posTicket: Int = 0,
+)

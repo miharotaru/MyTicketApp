@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.admin.AdminAddTicketFragment"
-    android:background="@drawable/gradient3">
+    tools:context=".fragments.admin.AdminEditTicketFragment"
+    android:background="@drawable/gradient3"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/tvNewTicketHeader"
@@ -17,21 +20,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Adăugare Ticket Nou"
-            android:textColor="@color/black"
+            android:text="Editare Ticket"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Selectarea datei cu stilizare îmbunătățită și imagine în loc de buton -->
+        <ImageView
+            android:id="@+id/idBtnDeleteDate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_delete_24"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+
+        <ImageView
+            android:id="@+id/idBtnEditareDate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_edit_24"
+            app:layout_constraintRight_toLeftOf="@+id/idBtnDeleteDate"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
+
 
         <ImageView
             android:id="@+id/idBtnPickDate"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="70dp"
             android:layout_marginStart="20dp"
             android:clickable="true"
             android:focusable="true"
@@ -46,11 +74,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="80dp"
             android:gravity="center_vertical"
-            android:text="Select Date"
-            android:textColor="@color/black"
+            android:text="@string/selecteaza_data"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintLeft_toRightOf="@+id/idBtnPickDate"
             app:layout_constraintTop_toBottomOf="@id/tvNewTicketHeader" />
@@ -74,15 +102,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:gravity="center_vertical"
-            android:text="Select Time"
-            android:textColor="@color/black"
+            android:text="@string/selecteaza_ora"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintLeft_toRightOf="@+id/idBtnPickTime"
             app:layout_constraintTop_toBottomOf="@id/idTVSelectedDate" />
-
-
-
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/idLayoutTitle"
@@ -100,28 +124,34 @@
                 android:id="@+id/idEdtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"
+                android:hint="Titlul"
+                android:inputType="text"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/idLayoutCategory"
-            style="@style/LoginTextInputOuterFieldStyle"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             app:boxStrokeColor="@color/lavander"
             app:hintTextColor="@color/white"
+            android:textColorHint="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idLayoutTitle">
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutTitle"
+            android:hint="Categoria">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/idEdtCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Category"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:inputType="none"
+                android:clickable="true"
+                android:focusable="false"
+                android:cursorVisible="false"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -140,7 +170,8 @@
                 android:id="@+id/idEdtCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="City"
+                android:hint="Orasul"
+                android:inputType="text"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +191,8 @@
                 android:id="@+id/idEdtLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location"
+                android:hint="Locatia"
+                android:inputType="text"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,7 +212,8 @@
                 android:id="@+id/idEdtDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Details"
+                android:hint="Detalii"
+                android:inputType="textLongMessage"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -200,7 +233,8 @@
                 android:id="@+id/idEdtNumberTicket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="NumberTicket"
+                android:hint="Numarul de bilete disponibile"
+                android:inputType="number"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -217,10 +251,11 @@
             app:layout_constraintTop_toBottomOf="@+id/idLayoutNumberTicket">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/idEdtCategoryOne"
+                android:id="@+id/idEdtPriceCategoryOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="CategoryOne"
+                android:hint="Pretul Categoriei Unu"
+                android:inputType="number"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -240,7 +275,8 @@
                 android:id="@+id/idEdtPriceCategoryTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="PriceCategoryTwo"
+                android:hint="Pretul Categoriei Doi"
+                android:inputType="number"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -260,7 +296,8 @@
                 android:id="@+id/idEdtPriceCategoryThree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="PriceCategoryThree"
+                android:hint="Pretul Categoriei Trei"
+                android:inputType="number"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -280,7 +317,8 @@
                 android:id="@+id/idEdtPriceCategoryVIP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="PriceCategoryVIP"
+                android:hint="Pretul Categoriei VIP"
+                android:inputType="number"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -300,9 +338,29 @@
                 android:id="@+id/idEdtImageUrl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="ImageUrl"
+                android:hint="Url-ul imaginii"
+                android:inputType="text"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idLayoutImageUrl"
+            >
+            <CheckBox
+                android:id="@+id/checkBoxNotification"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Doriti ca utilizatorii sa primeasca notificare in legatura cu acest ticket" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -318,6 +376,7 @@
             android:background="@drawable/rounded_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idLayoutImageUrl" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

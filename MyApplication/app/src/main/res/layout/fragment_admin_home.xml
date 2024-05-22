@@ -4,26 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.admin.AdminHomeFragment">
+    tools:context=".fragments.admin.AdminHomeFragment"
+    android:background="@drawable/gradient3">
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="search_hint"
+        android:hint="Cauta dupa titlu"
+        android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/searchButton"
         android:layout_marginEnd="8dp" />
 
-    <Button
+    <ImageView
         android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="search_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/image_search_home_all_object"
+        app:layout_constraintLeft_toRightOf="@id/searchEditText"
+        android:src="@drawable/baseline_search_24_white"
+        android:contentDescription="TODO"
+        android:clickable="true"/>
+
+    <ImageView
+        android:id="@+id/image_search_home_all_object"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/searchEditText" />
-    <!-- TODO: Update blank fragment layout -->
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/searchButton"
+        android:src="@drawable/baseline_saved_search_24_all"
+        android:clickable="true"/>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview_ticket_item_fragment_home"

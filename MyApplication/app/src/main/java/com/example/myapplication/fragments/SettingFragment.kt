@@ -134,6 +134,7 @@ class SettingFragment : Fragment() {
                         .addOnFailureListener {
                             Log.w("UpdateUser", "Error updating user with email: $emailUser")
                         }
+
                     binding.tvSettingsWarningText.visibility = View.INVISIBLE
                     Toast.makeText(
                         context,

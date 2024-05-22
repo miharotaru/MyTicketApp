@@ -51,4 +51,7 @@
     </string>
     <string name="selecteaza_data">Selecteaza data</string>
     <string name="selecteaza_ora">Selecteaza ora</string>
+
+    <string name="selecteaza_data_delet">-</string>
+    <string name="selecteaza_ora_delet">-</string>
 </resources>
