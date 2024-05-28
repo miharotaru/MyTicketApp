@@ -120,10 +120,8 @@ class HomeFragment : Fragment(), OnClickListener {
 
         val bigTextStyle = NotificationCompat.BigTextStyle()
             .bigText(
-                "Acesta este textul extins al notificării." +
-                        " Are loc la " + ticket.location + " categoria " + ticket.category +
-                        "detalii utilizatorului. Textul extins permite afișarea " +
-                        "unei cantități mai mari de informații."
+                "Evenomentul are loc in " + ticket.location + " cu categoria " + ticket.category +
+                        "\nVa asteptam cu drag! "
             )
 
 

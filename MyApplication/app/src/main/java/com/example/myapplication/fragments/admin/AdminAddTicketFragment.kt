@@ -143,8 +143,6 @@ class AdminAddTicketFragment : Fragment() {
                     //if (date)
 
                     val dateTime = LocalDateTime.of(date, time)
-                    val isoDateTime =
-                        dateTime.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
 
                     finalDate = "$dateTime.321Z"
 

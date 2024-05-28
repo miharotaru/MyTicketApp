@@ -105,8 +105,11 @@ class FavoriteTicketsFragment : Fragment(), OnClickListener {
         }
 
         if (userFavoriteTicketList.isNullOrEmpty()) {
-            binding.tvFrontTextFavorite.text = "Din pacate nu ai selectat nicio preferinta. " +
-                    "Poti sa te duci in setari si sa setezi de acolo"
+
+
+
+            binding.tvFrontTextFavorite.text = "Din pacate nu exista la momentul actual vreun bilet cu categoriile dorite. " +
+                    "Puteti sa adaugati noi categorii idn sectiunea setari."
         } else {
             initializeFavoriteAdapter()
         }
