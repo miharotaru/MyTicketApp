@@ -31,7 +31,6 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
-
 class AdminAddTicketFragment : Fragment() {
     private lateinit var pickDateBtn: ImageView
     private lateinit var selectedDateTV: TextView
@@ -63,21 +62,12 @@ class AdminAddTicketFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataBase() {
-
         var category = ""
         val items2: ArrayList<String> = ArrayList()
         items2.addAll(
             listOf(
-                "Concert",
-                "Festival",
-                "Teatru",
-                "Balet/Dans",
-                "Expozitie",
-                "Comedie",
-                "Sport",
-                "Street food",
-                "Workshop",
-                "Targ"
+                "Concert", "Festival", "Teatru", "Balet/Dans", "Expozitie",
+                "Comedie", "Sport", "Street food", "Workshop", "Targ"
             )
         )
         val adapter = ArrayAdapter(
@@ -116,80 +106,45 @@ class AdminAddTicketFragment : Fragment() {
             val title = binding.idEdtTitle.text.toString()
             val time1 = binding.idTVSelectedTime.text.toString()
             val date1 = binding.idTVSelectedDate.text.toString()
-
-
             var imageUrl = binding.idEdtImageUrl.text.toString()
-
 
             if (city.isEmpty() || details.isEmpty() || location.isEmpty() || title.isEmpty()
                 || time1 == getString(R.string.selecteaza_ora) || date1 == getString(R.string.selecteaza_data)
-                || category.isEmpty()
-                || priceCategoryOne.isEmpty() || priceCategoryTwo.isEmpty()
-                || priceCategoryThree.isEmpty() || priceCategoryVIP.isEmpty()
-            ) {
-                Toast.makeText(
-                    context,
-                    "Ai campuri necompletate",
-                    Toast.LENGTH_LONG
-                ).show()
-
+                || category.isEmpty() || priceCategoryOne.isEmpty() || priceCategoryTwo.isEmpty()
+                || priceCategoryThree.isEmpty() || priceCategoryVIP.isEmpty()) {
+                Toast.makeText(context, "Ai campuri necompletate", Toast.LENGTH_LONG).show()
             } else {
                 var finalDate = ""
 
                 try {
                     val date = LocalDate.parse(date1, DateTimeFormatter.ofPattern("d-M-yyyy"))
                     val time = LocalTime.parse(time1, DateTimeFormatter.ofPattern("H:m"))
-
-                    //if (date)
-
                     val dateTime = LocalDateTime.of(date, time)
-
                     finalDate = "$dateTime.321Z"
-
                 } catch (e: Exception) {
                     println("Eroare la parsarea datei sau a timpului: ${e.message}")
                 }
 
-
                 if (imageUrl.isEmpty()) {
-                    imageUrl =
-                        "https://teatrulioncreanga.ro/wp-content/uploads/2022/11/TILL_Site-600-x450.png"
+                    imageUrl = "https://teatrulioncreanga.ro/wp-content/uploads/2022/11/TILL_Site-600-x450.png"
                 }
 
-
                 val ticketCeva = Ticket(
-                    title,
-                    location,
-                    city,
-                    finalDate,
-                    details,
-                    numberTicket.toInt(),
-                    priceCategoryOne.toInt(),
-                    priceCategoryTwo.toInt(),
-                    priceCategoryThree.toInt(),
-                    priceCategoryVIP.toInt(),
-                    category,
-                    imageUrl
+                    title, location, city, finalDate, details, numberTicket.toInt(),
+                    priceCategoryOne.toInt(), priceCategoryTwo.toInt(),
+                    priceCategoryThree.toInt(), priceCategoryVIP.toInt(), category, imageUrl
                 )
 
                 Log.d("AddTicket", "Attempting to add ticket with data: $ticketCeva")
                 db.collection("tickets")
                     .add(ticketCeva)
                     .addOnSuccessListener { documentReference ->
-                        Log.d(
-                            "AddTicketSuccess",
-                            "DocumentSnapshot added with ID: ${documentReference.id}"
-                        )
-                        Toast.makeText(context, "Ticket added successfully!", Toast.LENGTH_SHORT)
-                            .show()
+                        Log.d("AddTicketSuccess", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        Toast.makeText(context, "Ticket added successfully!", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->
                         Log.e("AddTicketFailure", "Error adding document", e)
-                        Toast.makeText(
-                            requireContext(),
-                            "Error adding ticket: ${e.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireContext(), "Error adding ticket: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
 
                 cleanAll2()
@@ -232,7 +187,6 @@ class AdminAddTicketFragment : Fragment() {
         binding.idEdtImageUrl.text?.clear()
         binding.idTVSelectedTime.text = getString(R.string.selecteaza_ora)
         binding.idTVSelectedDate.text = getString(R.string.selecteaza_data)
-
     }
 
     private fun getHour() {
@@ -240,9 +194,7 @@ class AdminAddTicketFragment : Fragment() {
         selectedTimeTV = binding.idTVSelectedTime
 
         pickTimeBtn.setOnClickListener {
-
             val c = Calendar.getInstance()
-
             val hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
 
@@ -265,7 +217,6 @@ class AdminAddTicketFragment : Fragment() {
 
         pickDateBtn.setOnClickListener {
             val c = Calendar.getInstance()
-
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
@@ -274,8 +225,7 @@ class AdminAddTicketFragment : Fragment() {
                 DatePickerDialog(
                     it1,
                     { view, year, monthOfYear, dayOfMonth ->
-                        selectedDateTV.text =
-                            (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                        selectedDateTV.text = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
                     },
                     year,
                     month,
